@@ -1,0 +1,25 @@
+{
+    "description" : "Estudo",
+    "name" : "Estudo",
+    "license": "Private",
+    "require": {
+        "respect/rest": "0.6.0",
+        "philo/laravel-blade": "3.*",
+        "phpunit/phpunit": "^5.3",
+        "ruler/ruler": "^0.3.0",
+        "predis/predis": "^1.0",
+        "illuminate/database": "*",
+        "illuminate/support": "5.2.*",
+        "illuminate/pagination": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controllers\\": "App/Controllers/",
+            "eTraits\\": "App/eTraits/",
+            "Models\\": "App/Models/",
+            "Config\\": "App/Config/",
+            "Library\\": "App/Library/",
+            "Views\\": "App/Views/"
+        }
+    }
+}

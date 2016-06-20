@@ -1,0 +1,2 @@
+SHOW TABLE STATUS WHERE Name="deals";
+ALTER TABLE deals COMMENT '{"display_name":"Vendas", "type":"storage", "display_fk":"id", "link_n":["products"]}';
