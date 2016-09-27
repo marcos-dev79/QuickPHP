@@ -11,6 +11,8 @@ use Library\FormGenerator\Maker;
 use Respect\Rest\Routable;
 use Models\GenericModel;
 use Library\DAO\Tables;
+use Library\Dates\Dates;
+use Library\Security\Protector;
 use eTraits;
 
 class Insert implements Routable {
@@ -80,6 +82,9 @@ class Insert implements Routable {
                     }
                 }else if($info->DOM == 'password'){
                     $model->{$field->Field} = Protector::genhash($data[$field->Field]);
+                }
+                else if(isset($info->class) && $info->class == 'datepicker'){
+                    $model->{$field->Field} = Dates::unDateBR($data[$field->Field]);
                 }else {
                     $model->{$field->Field} = $data[$field->Field];
                 }

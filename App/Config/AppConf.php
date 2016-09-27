@@ -18,10 +18,12 @@ $config[] = $_REQUEST;
 
 $protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing'];
 
-$static = ['/', '/contact', '/404'];
+$static = ['/', '/contato', '/remove', '/404', 'servicos_pages/*', '/price_service', '/recuperaSenha', '/imprimeVoucher', '/downloadPDF'];
 
 $config['options']['crud'] = ['users', 'type', 'products'];
 $config['options']['dbname'] = 'nolx';
+
+$status = false;
 
 // Encryptor
 $config['options']['encryption'] = 'RqOWSFLRxMgzmK37TbSjTjEUtGfSDN78XAFw9gBgghI=';

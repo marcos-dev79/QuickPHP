@@ -35,7 +35,12 @@ class Listing implements Routable {
             }
             $tableObj = Tables::describeTable($table, $this->dbname);
             $tbldetails = Tables::getTableDetails($tableObj, $table);
-            echo $this->blade->view()->make('Crud/listing')->with('table', $table)->with('user', $user)->with('tbldetails', $tbldetails)->render();
+            echo $this->blade->view()->make('Crud/listing')
+                ->with('table', $table)
+                ->with('tableObj', $tableObj)
+                ->with('user', $user)
+                ->with('tbldetails', $tbldetails)
+                ->render();
         }catch(\Exception $e){
             $this->r404();
         }

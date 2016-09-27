@@ -14,7 +14,7 @@ if($env == 'dev') {
         'driver'    => 'mysql',
         'host'      => 'localhost',
         'database'  => 'nolx',
-        'username'  => 'root',
+        'username'  => '',
         'password'  => '',
         'charset'   => 'utf8',
         'collation' => 'utf8_bin',
@@ -25,7 +25,7 @@ elseif($env == 'prod'){
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => '',
+        'database'  => 'nolx',
         'username'  => '',
         'password'  => '',
         'charset'   => 'utf8',
@@ -33,5 +33,6 @@ elseif($env == 'prod'){
         'prefix'    => ''
     ));
 }
+
 $capsule->setAsGlobal();
 $capsule->bootEloquent();

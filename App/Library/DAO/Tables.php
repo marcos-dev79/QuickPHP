@@ -7,6 +7,7 @@
 
 namespace Library\DAO;
 use Illuminate\Database\Capsule\Manager as DB;
+use Models\GenericModel;
 use Predis\Client;
 
 class Tables
@@ -49,8 +50,17 @@ class Tables
         return $tFields;
     }
 
+    public static function getLinkObjects($link){
+        $obj = new GenericModel();
+        $obj->setTable($link);
+        $query = $obj::all();
+
+        return $query;
+    }
+
     public static function getTableDetails($tableObj, $table){
         $tblDetail = new \stdClass();
+        $tblDetail->TABLE_COMMENT = null;
         foreach($tableObj['table_details'] as $tbl){
             if($tbl->TABLE_NAME == $table){
                 $tblDetail = $tbl;

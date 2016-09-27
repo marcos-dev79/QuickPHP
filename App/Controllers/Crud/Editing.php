@@ -12,6 +12,7 @@ use Library\Security\Protector;
 use Respect\Rest\Routable;
 use Models\GenericModel;
 use Library\DAO\Tables;
+use Library\Dates\Dates;
 use eTraits;
 
 class Editing implements Routable {
@@ -88,6 +89,9 @@ class Editing implements Routable {
                     }
                 }else if($info->DOM == 'password'){
                     $query->{$field->Field} = Protector::genhash($data[$field->Field]);
+                }
+                else if(isset($info->class) && $info->class == 'datepicker'){
+                    $query->{$field->Field} = Dates::unDateBR($data[$field->Field]);
                 }
                 else {
                     $query->{$field->Field} = $data[$field->Field];

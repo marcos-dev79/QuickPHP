@@ -42,20 +42,28 @@ class GenericController implements Routable {
             $h = [];
             $ah = [];
 
+            $pagination = true;
+            if(isset($_REQUEST['pagination'])) {
+                $pagination = ($_REQUEST['pagination'] == 1) ? true : false;
+            }
+
+            $iter = 1;
             foreach($tableObj['fields'] as $field){
                 $info = json_decode($field->Comment);
 
                 if(isset($info->list) && $info->list == 'true'){
                     if(isset($info->link_fk)){
                         $tbl_link = Tables::getTableDetails($tableObj, $info->link_fk);
-                        $select[] = $info->link_fk . '.' . $tbl_link->display_fk . ' as '.$info->link_fk.'_'.$tbl_link->display_fk;
+                        $select[] = $info->link_fk .'_'.$iter . '.' . $tbl_link->display_fk . ' as '.$field->Field;
+                        $select[] = $info->link_fk .'_'.$iter . '.id as '.$field->Field.'_id';
+                        $iter++;
                     }else {
                         $select[] = $table . '.' . $field->Field;
                     }
                     $h[] = $info->display_name;
                 }
                 if(isset($info->link_fk)){
-                    $fk[] = $info->link_fk;
+                    $fk[$field->Field] = $info->link_fk;
                 }
                 $ah[] = $info->display_name;
             }
@@ -68,16 +76,37 @@ class GenericController implements Routable {
             $modelObj->setTable($table);
             $query = $modelObj::orderby($table.'.id', 'desc');
 
-            foreach($fk as $f){
-                $query->leftJoin($f, $table.'.'.$f, '=', $f.'.id');
+            $iter = 1;
+            foreach($fk as $key => $f){
+                $query->leftJoin($f.' as '.$f.'_'.$iter, $table.'.'.$key, '=', $f.'_'.$iter.'.id');
+                $iter++;
             }
 
-            $page = (isset($_GET['page']) ? $this->sanitize($_GET['page'], 'int') : 1);
-            Pagination\LengthAwarePaginator::currentPathResolver(function() use($page, $table) { return "/".$table; });
-            Pagination\LengthAwarePaginator::currentPageResolver(function() use($page) { return $page; });
+            if(isset($_GET)){
+                foreach($_GET as $k => $v) {
+                    if($k != 'pagination') {
+                        $gfield = $k;
+                        $query->where($table . '.' . $gfield, $v);
+                    }
+                }
+            }
 
-            $u_ob = $query->paginate(15, $select);
-            $u['collection'] = $u_ob->getCollection();
+            if($pagination) {
+                $page = (isset($_GET['page']) ? $this->sanitize($_GET['page'], 'int') : 1);
+                Pagination\LengthAwarePaginator::currentPathResolver(function () use ($page, $table) {
+                    return "/" . $table;
+                });
+                Pagination\LengthAwarePaginator::currentPageResolver(function () use ($page) {
+                    return $page;
+                });
+
+                $u_ob = $query->where($table . '.deleted_at', null)->paginate(15, $select);
+                $u['collection'] = $u_ob->getCollection();
+            }else{
+                $u_ob = $query->where($table . '.deleted_at', null)->select($select)->get();
+                $u['collection'] = $u_ob;
+            }
+
             $u['fieldsObj'] = Tables::fieldListAdaptor($tableObj['fields']);
 
             $currTableDetail = Tables::getTableDetails($tableObj, $table);
