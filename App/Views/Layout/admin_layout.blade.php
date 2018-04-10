@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Test</title>
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/metisMenu/dist/metisMenu.min.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/Css/sb-admin-2.css">
-    <link rel="stylesheet" type="text/css" href="/Css/custom.css">
-    <link href="/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/metisMenu/dist/metisMenu.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/Css/sb-admin-2.css">
+    <link rel="stylesheet" type="text/css" href="/public/Css/custom.css">
+    <link href="/public/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -88,16 +88,18 @@
     <!-- /#wrapper -->
 
 
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/Js/sb-admin-2.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/metisMenu/dist/metisMenu.js"></script>
-    <script src="/bower_components/raphael/raphael.min.js"></script>
+    <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/public/Js/sb-admin-2.js"></script>
+    <script src="/public/bower_components/angular/angular.min.js"></script>
+    <script src="/public/bower_components/metisMenu/dist/metisMenu.js"></script>
+    <script src="/public/bower_components/raphael/raphael.min.js"></script>
 
     @yield('js')
-    <script src="/App/services.js"></script>
-    <script src="/App/app.js"></script>
+    <script src="/public/App/app.js"></script>
+    <script src="/public/App/ListController.js"></script>
+    <script src="/public/App/LoginController.js"></script>
+    <script src="/public/App/services.js"></script>
 
 
 </body>

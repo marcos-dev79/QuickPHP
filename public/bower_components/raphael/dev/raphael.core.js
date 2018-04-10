@@ -1,11 +1,3 @@
-// ┌────────────────────────────────────────────────────────────────────┐ \\
-// │ Raphaël @@VERSION - JavaScript Vector Library                      │ \\
-// ├────────────────────────────────────────────────────────────────────┤ \\
-// │ Core Module                                                        │ \\
-// ├────────────────────────────────────────────────────────────────────┤ \\
-// │ Licensed under the MIT (http://raphaeljs.com/license.html) license.│ \\
-// └────────────────────────────────────────────────────────────────────┘ \\
-
 define(["eve"], function(eve) {
 
     /*\
@@ -75,7 +67,7 @@ define(["eve"], function(eve) {
             }
         }
     }
-    R.version = "@@VERSION";
+    R.version = "2.2.0";
     R.eve = eve;
     var loaded,
         separator = /[, ]+/,
@@ -203,7 +195,8 @@ define(["eve"], function(eve) {
             transform: "",
             width: 0,
             x: 0,
-            y: 0
+            y: 0,
+            "class": ""
         },
         availableAnimAttrs = R._availableAnimAttrs = {
             blur: nu,
@@ -376,7 +369,6 @@ define(["eve"], function(eve) {
     \*/
     R.fn = paperproto = Paper.prototype = R.prototype;
     R._id = 0;
-    R._oid = 0;
     /*\
      * Raphael.is
      [ method ]
@@ -2829,7 +2821,7 @@ define(["eve"], function(eve) {
      * Raphael.el
      [ property (object) ]
      **
-     * You can add your own method to elements. This is usefull when you want to hack default functionality or
+     * You can add your own method to elements. This is useful when you want to hack default functionality or
      * want to wrap some common transformation or attributes in one method. In difference to canvas methods,
      * you can redefine element method at any time. Expending element methods wouldn’t affect set.
      > Usage
@@ -3076,7 +3068,7 @@ define(["eve"], function(eve) {
      * Element.data
      [ method ]
      **
-     * Adds or retrieves given value asociated with given key.
+     * Adds or retrieves given value associated with given key.
      **
      * See also @Element.removeData
      > Parameters
@@ -3185,7 +3177,7 @@ define(["eve"], function(eve) {
      - mcontext (object) #optional context for moving handler
      - scontext (object) #optional context for drag start handler
      - econtext (object) #optional context for drag end handler
-     * Additionaly following `drag` events will be triggered: `drag.start.<id>` on start,
+     * Additionally following `drag` events will be triggered: `drag.start.<id>` on start,
      * `drag.end.<id>` on end and `drag.move.<id>` on every move. When element will be dragged over another element
      * `drag.over.<id>` will be fired as well.
      *

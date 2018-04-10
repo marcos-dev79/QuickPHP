@@ -28,6 +28,9 @@ class Protector
     }
 
     public static function getUser(){
+        if(!isset($_SESSION['user'])){
+            header('Location: /404');
+        }
         return $_SESSION['user'];
     }
 

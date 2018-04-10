@@ -3,13 +3,13 @@
  * Basic Config File
  */
 
-include('../vendor/autoload.php');
+include('vendor/autoload.php');
 include_once 'Database.php';
 
 use Philo\Blade\Blade;
 
-$views = '../App/Views';
-$cache = '../App/Cache';
+$views = 'App/Views';
+$cache = 'App/Cache';
 
 $config = [];
 $config['url'] = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : '/';
@@ -18,10 +18,10 @@ $config[] = $_REQUEST;
 
 $protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing'];
 
-$static = ['/', '/contato', '/remove', '/404', 'servicos_pages/*', '/price_service', '/recuperaSenha', '/imprimeVoucher', '/downloadPDF'];
+$static = ['/', '/logout', '/remove', '/404', 'servicos_pages/*', '/login', '/recuperaSenha', '/admin'];
 
-$config['options']['crud'] = ['users', 'type', 'products'];
-$config['options']['dbname'] = 'nolx';
+$config['options']['crud'] = ['users'];
+$config['options']['dbname'] = 'quickphp';
 
 $status = false;
 

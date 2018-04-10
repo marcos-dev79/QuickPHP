@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `nolx` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `nolx`;
+CREATE DATABASE  IF NOT EXISTS `quickphp` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `quickphp`;
 -- MySQL dump 10.13  Distrib 5.5.49, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: nolx
@@ -193,7 +193,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,'Marcos Riso','mriso@intelitica.com','202cb962ac59075b964b07152d234b70','1979-11-04','2016-04-14 15:37:00',NULL,NULL,1),(2,3,'John ','marcoseriso@gmail','1234','1986-05-03','2016-04-14 15:39:00','2016-04-24 17:55:58','0000-00-00 00:00:00',1),(3,2,'Igor Samuel','igorlacerdariso@gmail.com','123','0000-00-00','2016-04-21 12:07:50','2016-04-21 12:07:50',NULL,1),(4,3,'Johnson Text','marcosriso@yahoo.com.br','123123','2003-03-03','2016-04-22 23:49:58','2016-04-24 17:54:41','2016-04-24 17:54:41',1);
+INSERT INTO `users` VALUES (1,2,'Marcos Riso','mriso@intelitica.com','$2y$10$YE8qLqSjrX99hA7xnqZ2pe/D3n9.7MfP4yTlzd8nDn4C2p0tqQ/dC','1979-11-04','2016-04-14 15:37:00',NULL,NULL,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

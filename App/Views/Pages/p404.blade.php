@@ -1,5 +1,8 @@
 @extends('Layout.base_layout')
 
 @section('content')
-<h2>404</h2>
+<div class="container">
+    <h2>This page is not available.</h2>
+    <a href="/">Back</a>
+</div>
 @endsection

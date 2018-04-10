@@ -13,9 +13,9 @@ if($env == 'dev') {
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => 'nolx',
-        'username'  => '',
-        'password'  => '',
+        'database'  => 'agriaofilmes',
+        'username'  => 'root',
+        'password'  => 'zimbros',
         'charset'   => 'utf8',
         'collation' => 'utf8_bin',
         'prefix'    => ''
