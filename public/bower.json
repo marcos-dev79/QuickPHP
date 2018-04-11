@@ -30,6 +30,8 @@
     "datatables-responsive": "~1.0.3",
     "bootstrap-social": "~4.8.0",
     "flot.tooltip": "~0.8.4",
-    "angular": "^1.6.9"
+    "angular": "^1.6.9",
+    "jquery-ui": "^1.12.1",
+    "tinymce": "^4.7.10"
   }
 }

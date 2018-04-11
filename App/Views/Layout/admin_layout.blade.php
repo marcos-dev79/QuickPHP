@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="Nolx">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Admin</title>
 
     <link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/jquery-ui/themes/flick/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/public/bower_components/metisMenu/dist/metisMenu.min.css">
     <link rel="stylesheet" type="text/css" href="/public/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/public/Css/sb-admin-2.css">
@@ -87,15 +88,18 @@
     </div>
     <!-- /#wrapper -->
 
-
     <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/public/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/public/Js/sb-admin-2.js"></script>
     <script src="/public/bower_components/angular/angular.min.js"></script>
     <script src="/public/bower_components/metisMenu/dist/metisMenu.js"></script>
     <script src="/public/bower_components/raphael/raphael.min.js"></script>
 
+    <script src="/public/Js/select2.full.min.js"></script>
+
     @yield('js')
+
     <script src="/public/App/app.js"></script>
     <script src="/public/App/ListController.js"></script>
     <script src="/public/App/LoginController.js"></script>

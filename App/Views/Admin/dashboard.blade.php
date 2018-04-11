@@ -188,6 +188,6 @@
 @endsection
 
 @section('js')
-    <script src="/bower_components/morrisjs/morris.min.js"></script>
-    <script src="/Js/morris-data.js"></script>
+    <script src="/public/bower_components/morrisjs/morris.min.js"></script>
+    <script src="/public/Js/morris-data.js"></script>
 @endsection

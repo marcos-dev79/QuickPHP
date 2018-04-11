@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/public//bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/public//Css/scrolling-nav.css">
-    <link rel="stylesheet" type="text/css" href="/public//Css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/jquery-ui/themes/flick/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/Css/scrolling-nav.css">
+    <link rel="stylesheet" type="text/css" href="/public/Css/custom.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,6 +24,7 @@
     @yield('content')
 
 <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/public/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/public/Js/jquery.easing.min.js"></script>
 <script src="/public/Js/scrolling-nav.js"></script>

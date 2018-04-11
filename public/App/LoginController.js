@@ -23,7 +23,7 @@
     }
 
     angular
-        .module('app', [])
+        .module('app')
         .controller('ctrLogin', Login);
 
 })();

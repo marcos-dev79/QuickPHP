@@ -6,6 +6,7 @@
  */
 
 namespace Controllers\Crud;
+use Library\Dates\Dates;
 use Respect\Rest\Routable;
 use Models\GenericModel;
 use Library\DAO\Tables;
@@ -26,12 +27,22 @@ class GenericController implements Routable {
         $this->dbname = $options['dbname'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->request = $request;
     }
 
     public function get( ) {
         try {
             if(!$table = Tables::checkIsTable($this->url)){
                 throw new \Exception("404");
+            }
+
+            // Limpa os filtros ao mudar de tabela
+            if(isset($_SESSION['table'])){
+                if($_SESSION['table'] != $table){
+                    unset($_SESSION['filters']);
+                }
+            }else{
+                $_SESSION['table'] = $table;
             }
 
             $tableObj = Tables::describeTable($table, $this->dbname);
@@ -42,9 +53,9 @@ class GenericController implements Routable {
             $h = [];
             $ah = [];
 
-            $pagination = true;
+            $pagination = false;
             if(isset($_REQUEST['pagination'])) {
-                $pagination = ($_REQUEST['pagination'] == 1) ? true : false;
+                $pagination = true;
             }
 
             $iter = 1;
@@ -74,7 +85,12 @@ class GenericController implements Routable {
 
             $modelObj = new GenericModel();
             $modelObj->setTable($table);
-            $query = $modelObj::orderby($table.'.id', 'desc');
+
+            if($table == 'horarios'){
+                $query = $modelObj::orderby($table . '.horarios', 'asc');
+            }else {
+                $query = $modelObj::orderby($table . '.id', 'desc');
+            }
 
             $iter = 1;
             foreach($fk as $key => $f){
@@ -82,11 +98,30 @@ class GenericController implements Routable {
                 $iter++;
             }
 
+            if(isset($_REQUEST['search'])){
+                $filter = [];
+
+                if(isset($_SESSION['filters']) && $_SESSION['filters'] != null){
+                    foreach($_SESSION['filters'] as $key => $filt){
+                        $_GET[$key] = $filt;
+                    }
+                }
+            }
+
             if(isset($_GET)){
                 foreach($_GET as $k => $v) {
-                    if($k != 'pagination') {
-                        $gfield = $k;
-                        $query->where($table . '.' . $gfield, $v);
+                    if($k != 'table' && $v != '' && $k != 'pagination' && $k != 'page' && $k != 'search') {
+                        if($v == 'Nenhum' || $v == ''){
+                            continue;
+                        }
+
+                        if($k == 'created_at' || $k == 'updated_at'){
+                            $v = Dates::unDateBR($v);
+                            $query->whereBetween($table.'.'.$k, array($v.' 00:00:00', $v.' 23:59:59'));
+                        }else {
+                            $query->whereRaw('LOWER('.$table.'.'.$k.') LIKE \'%'.strtolower($v).'%\'');
+                        }
+                        $filter[$k] = $v;
                     }
                 }
             }
@@ -100,7 +135,7 @@ class GenericController implements Routable {
                     return $page;
                 });
 
-                $u_ob = $query->where($table . '.deleted_at', null)->paginate(15, $select);
+                $u_ob = $query->where($table . '.deleted_at', null)->paginate(10, $select);
                 $u['collection'] = $u_ob->getCollection();
             }else{
                 $u_ob = $query->where($table . '.deleted_at', null)->select($select)->get();

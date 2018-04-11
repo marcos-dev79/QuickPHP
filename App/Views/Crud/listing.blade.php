@@ -1,10 +1,48 @@
 @extends('Layout.admin_layout')
 
 @section('content')
-    <div class="listing_wrapper" ng-controller="getList" ng-init="init('/{{ $table  }}')">
+    <div class="listing_wrapper" ng-controller="getList" ng-init="init('/{{ $table  }}',0)">
         <div class="row">
             <div class="col-lg-12">
                 <h2>{{ $tbldetails->display_name }}</h2>
+                
+                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Adicionar {{ $tbldetails->display_name }}</a>
+                <div class="sm-marg"></div>
+
+                <div id="scrolltop"></div>
+
+                @if(isset($tbldetails->filter))
+                <div class="filter">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4>Filtro</h4>
+                            <form class="form-inline" action="/admsearch" method="post">
+                                @foreach($tableObj['fields'] as $field)
+                                    @if(in_array($field->Field, $tbldetails->filter))
+                                        <?php
+                                        $info = \Library\Utils\DataUtilities::deSerializeJson($field->Comment);
+                                        $info->isfilter = true;
+                                        $info->readonly = false;
+                                        $info->required = false;
+                                            if(isset($info->link_fk)){
+                                                $link = \Library\DAO\Tables::getLinkObjects($info->link_fk);
+                                                $link->details = \Library\DAO\Tables::getTableDetails($tableObj, $info->link_fk);
+                                            }
+                                        ?>
+                                        <div class="form-group">
+                                            @include('Components.'.$info->DOM)
+                                        </div>
+                                    @endif
+                                @endforeach
+                                <input type="hidden" id="table" name="table" value="{{ $table }}">
+                                <button type="submit" class="btn btn-default">Filtrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-bottom"></div>
+                @endif
+
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-condensed" ng-cloak>
                         <tr>
@@ -13,17 +51,21 @@
                         </tr>
                         <tr ng-show="obj.collection | isEmpty" ><td colspan="@{{ obj.colspan }}">Não há registros.</td></tr>
                         <tr ng-repeat="item in obj.collection" >
-                            <td class="text-center min-width">
+                            <td class="min-width">
+                                <p>
                                 <a class="btn-sm btn-primary" ng-href="/editing/{{ $table }}/@{{ item.id }}"><i class="glyphicon glyphicon-edit"></i></a>
-                                &nbsp;
-                                <a class="btn-sm btn-danger" href="" ng-click="showModal(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
+
                             </td>
-                            <td ng-repeat="(key, col) in item" ng-switch="getTypeOf(col)">
+                            <td class="max-width" ng-repeat="(key, col) in item" ng-if="obj.fieldsObj[key]" ng-switch="getTypeOf(col)">
+
                                 <span ng-switch-when="string">
-                                    @{{ (obj.fieldsObj[key].DOM == 'upload') ? '' : col }}
-                                    <span ng-if="obj.fieldsObj[key].DOM == 'upload'"><img src="/@{{ col }}" class="little-thumb" /></span>
+                                    <span ng-if="obj.fieldsObj[key].DOM == 'upload'"><img ng-src="'/' + col" class="little-thumb" /></span>
+                                    <span ng-if="obj.fieldsObj[key].DOM != 'upload' && key != 'totalvalue'" ng-bind-html="trustme(col)">@{{ col }}</span>
+                                    <span ng-if="key == 'totalvalue'">@{{ col | currency }}</span>
                                 </span>
-                                <span ng-switch-when="number">@{{ col }}</span>
+                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==1">Sim</span>
+                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==0">Não</span>
+                                <span ng-switch-when="number" ng-if="obj.fieldsObj[key].DOM != 'checkbox'">@{{ col }}</span>
                                 <span ng-switch-when="object">
                                     <span ng-repeat="coln in col">@{{ coln.id }} - @{{ coln.display_field }}<br/></span>
                                 </span>
@@ -32,6 +74,7 @@
                         </tr>
                     </table>
                     <div>
+                        <!-- Pagination -->
                         <nav ng-show="obj.links.total > obj.links.per_page" ng-cloak>
                             <ul class="pagination">
                                 <li>
@@ -39,7 +82,7 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li ng-repeat="a in range(obj.links.last_page) track by $index"><a href="" ng-click="init('/{{ $table  }}?page='+($index+1))">@{{ $index + 1 }}</a></li>
+                                <li ng-repeat="a in range(obj.links.last_page) track by $index"><a href="" ng-click="init('/{{ $table  }}?page='+($index+1), 0)">@{{ $index + 1 }}</a></li>
                                 <li>
                                     <a href="" ng-click="init(obj.links.next_page_url)" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -47,11 +90,9 @@
                                 </li>
                             </ul>
                         </nav>
+
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Adicionar {{ $tbldetails->display_name }}</a>
             </div>
         </div>
 
@@ -87,4 +128,37 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script src="/public/bower_components/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.select2').select2({
+                theme: "bootstrap"
+            });
+
+            $( ".datepicker" ).datepicker({
+                dateFormat: "dd/mm/yy",
+                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+                dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-110:+15",
+                //minDate: '0'
+            });
+
+            tinymce.init({
+                selector: '.text_advanced',
+                plugins: "code"
+            });
+
+        });
+
+    </script>
 @endsection

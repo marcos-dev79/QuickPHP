@@ -8,9 +8,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
 
-                <form action="/{{ $tableObj['action'] }}/{{ $table }}" enctype="multipart/form-data" class="form-horizontal" method="post">
+                <form novalidate name="form_{{ $table }}" action="/{{ $tableObj['action'] }}/{{ $table }}@if($tableObj['action'] == 'editing')/{{ $tableObj['id'] }}@endif"
+                      enctype="multipart/form-data"
+                      class="form-horizontal"
+                      method="post">
                     @forelse($html as $h)
                         {!! $h !!}
                     @empty
@@ -28,4 +31,9 @@
                 <!-- something here -->
             </div>
         </div>
+@endsection
+
+@section('js')
+    <script src="/public/bower_components/tinymce/tinymce.min.js"></script>
+    @include('Crud.datepickerInc')
 @endsection

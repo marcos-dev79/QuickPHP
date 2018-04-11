@@ -1,5 +1,5 @@
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-3 col-sm-9">
         <div class="checkbox">
             <label for="{{ $field->Field }}">
                 <input type="checkbox" value="1" @if($info->readonly) readonly @endif @if($info->required) required @endif

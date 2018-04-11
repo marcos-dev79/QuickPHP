@@ -5,11 +5,11 @@
 
     "use strict";
     
-    function getList ($scope, $http) {
+    function getListController($scope, $http, $sce) {
 
         $scope.init = function(url) {
-            $http.get(url).success(function(data){
-                $scope.obj = data;
+            $http.get(url).then(function(data){
+                $scope.obj = data.data;
             });
         };
 
@@ -27,13 +27,17 @@
             return typeof value;
         };
 
+        $scope.trustme = function(item) {
+            return $sce.trustAsHtml(item);
+        };
+
         $scope.showModal = function(id){
             $scope.id = id;
             $('#modal').modal('show');
         }
 
         $scope.deleteobj = function(table) {
-            $http.get('/deleting/'+table+'/'+$scope.id).success(function(data){
+            $http.get('/deleting/'+table+'/'+$scope.id).then(function(data){
                 $scope.init('/'+table);
                 if(data.result == 'success'){
                     $('#alerts').removeClass('hidden');
@@ -52,10 +56,9 @@
 
     }
 
-
     angular
-        .module('app', [])
-        .controller('getList', getList);
+        .module('app')
+        .controller('getList', getListController);
 
 
 })();

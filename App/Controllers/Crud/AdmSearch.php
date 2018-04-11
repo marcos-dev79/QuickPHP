@@ -37,6 +37,17 @@ class AdmSearch implements Routable {
 
     public function post(){
         $table = $this->sanitize($_POST['table']);
+
+        // Limpa os filtros ao mudar de tabela
+        if(isset($_SESSION['table'])){
+            if($_SESSION['table'] != $table){
+                unset($_SESSION['filters']);
+            }
+        }else{
+            $_SESSION['table'] = $table;
+        }
+
+
         $tableObj = Tables::describeTable($table, $this->dbname);
 
         $select = [];
@@ -85,17 +96,43 @@ class AdmSearch implements Routable {
             $iter++;
         }
 
+        $filter = [];
+
+        if(isset($_SESSION['filters']) && $_SESSION['filters'] != null){
+            foreach($_SESSION['filters'] as $key => $filt){
+                if(isset($_POST[$key])){
+                    $_SESSION['filters'][$key] = $_POST[$key];
+                }
+                else {
+                    $_POST[$key] = $filt;
+                }
+            }
+        }elseif(isset($_SESSION['filters']) && $_SESSION['filters'] == null){
+            unset($_SESSION['filters']);
+        }
+
         foreach($_POST as $k => $v) {
-            if($k != 'table' && $v != '') {
+            if($k != 'table' && $v != '' && $k != 'pagination' && $k != 'page' && $k != 'search') {
+                if($v == 'Nenhum' || $v == ''){
+                    continue;
+                }
+
                 if($k == 'created_at' || $k == 'updated_at'){
                     $v = Dates::unDateBR($v);
                     $query->whereBetween($table.'.'.$k, array($v.' 00:00:00', $v.' 23:59:59'));
-                }else {
+                }elseif($k == 'users'){
+                    $query->where($table.'.'.$k, $v);
+                }
+                else {
                     $query->whereRaw('LOWER('.$table.'.'.$k.') LIKE \'%'.strtolower($v).'%\'');
                 }
+                $filter[$k] = $v;
             }
         }
 
+        $_SESSION['filters'] = (count($filter)>0)? $filter : null;
+
+        //$pagination = true;
         if($pagination) {
             $page = (isset($_GET['page']) ? $this->sanitize($_GET['page'], 'int') : 1);
             Pagination\LengthAwarePaginator::currentPathResolver(function () use ($page, $table) {
@@ -105,7 +142,7 @@ class AdmSearch implements Routable {
                 return $page;
             });
 
-            $u_ob = $query->where($table . '.deleted_at', null)->paginate(15, $select);
+            $u_ob = $query->where($table . '.deleted_at', null)->paginate(10, $select);
             $u['collection'] = $u_ob->getCollection();
         }else{
             $u_ob = $query->where($table . '.deleted_at', null)->select($select)->get();
@@ -148,9 +185,11 @@ class AdmSearch implements Routable {
         $tableObj = Tables::describeTable($table, $this->dbname);
         $tbldetails = Tables::getTableDetails($tableObj, $table);
 
+
         echo $this->blade->view()->make('Crud/admsearchresult')
             ->with('table', $table)
             ->with('u', $result)
+            ->with('filter', $filter)
             ->with('tableObj', $tableObj)
             ->with('user', $user)
             ->with('tbldetails', $tbldetails)

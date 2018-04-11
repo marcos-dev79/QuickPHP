@@ -1,7 +1,7 @@
 <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
 <div class="form-group">
-    <label for="{{ $field->Field }}" class="col-sm-2 control-label">{{ $info->display_name }}</label>
-    <div class="col-sm-10">
+    <label for="{{ $field->Field }}" class="col-sm-3 control-label">{{ $info->display_name }}</label>
+    <div class="col-sm-9">
         <input type="file" class="form-control {{ $info->class }}"
                 id="{{ $field->Field }}" name="{{ $field->Field }}" placeholder=""
                 @if($info->readonly) readonly @endif

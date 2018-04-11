@@ -56,9 +56,8 @@ class Editing implements Routable {
         $model->setTable($table);
         $query = $model->find($data['id']);
         foreach($tableObj['fields'] as $field){
+            $info = json_decode($field->Comment);
             if(isset($data[$field->Field]) || isset($_FILES[$field->Field])){
-
-                $info = json_decode($field->Comment);
                 // IF UPLOAD
                 if($info->DOM == 'upload'){
                     foreach($_FILES as $file){
@@ -95,6 +94,10 @@ class Editing implements Routable {
                 }
                 else {
                     $query->{$field->Field} = $data[$field->Field];
+                }
+            }else{
+                if($info->DOM == 'checkbox'){
+                    $query->{$field->Field} = 0;
                 }
             }
         }
