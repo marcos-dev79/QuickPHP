@@ -40,6 +40,15 @@ class Deleting implements Routable {
             $model = new GenericModel();
             $model->setTable($table);
             $query = $model->find($this->id);
+
+            foreach($tableObj['fields'] as $field){
+                $info = json_decode($field->Comment);
+                if($info->DOM == 'upload'){
+                    $path = $query->{$field->Field};
+                    unlink($path);
+                }
+            }
+            
             if($query->delete()){
                 $this->delResult(true);
             }else{

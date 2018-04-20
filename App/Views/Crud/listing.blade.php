@@ -54,12 +54,12 @@
                             <td class="min-width">
                                 <p>
                                 <a class="btn-sm btn-primary" ng-href="/editing/{{ $table }}/@{{ item.id }}"><i class="glyphicon glyphicon-edit"></i></a>
-
+                                <a class="btn-sm btn-danger" ng-href="" ng-click="showModal(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
                             </td>
                             <td class="max-width" ng-repeat="(key, col) in item" ng-if="obj.fieldsObj[key]" ng-switch="getTypeOf(col)">
 
                                 <span ng-switch-when="string">
-                                    <span ng-if="obj.fieldsObj[key].DOM == 'upload'"><img ng-src="'/' + col" class="little-thumb" /></span>
+                                    <span ng-if="obj.fieldsObj[key].DOM == 'upload'"><img ng-src="/@{{ col }}" class="little-thumb" /></span>
                                     <span ng-if="obj.fieldsObj[key].DOM != 'upload' && key != 'totalvalue'" ng-bind-html="trustme(col)">@{{ col }}</span>
                                     <span ng-if="key == 'totalvalue'">@{{ col | currency }}</span>
                                 </span>
