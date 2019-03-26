@@ -7,8 +7,11 @@ It also have a simple AngularJs template for a quick monolithic web application.
 # Run composer install first.
 
 Then, configure your stuff at App/Config/AppConf.php.
+Create a folder App/Cache and give write permission.
 
 The magic them happens in the database, you must set up the table "comments" and the fields comments too. There is a dump example in the Dumps folder.
+
+* image fields: need to create a folder with the table name in the public/uploads folder.
 
 # Database: Table Comment Example
 
