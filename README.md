@@ -2,7 +2,7 @@
 
 Quick PHP is a PHP/JS framework for quick building up aplications - and even REST services. It allows you to auto-generate CRUD based on comments in your tables. It comes with authentication and a admin panel embedded.
 
-It also have a simple AngularJs template for a quick monolithic web application. Although more modern architectures have emerged since I created this framework, QuickPHP is still valuable for fast creation of simple to medium complexity panels and 
+It also have a simple AngularJs template for a quick monolithic web application. Although more modern architectures have emerged since I created this framework, QuickPHP is still valuable for fast creation of simple to medium complexity panels and websites.
 
 # Run composer install first.
 
