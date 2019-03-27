@@ -4,9 +4,14 @@
     <div class="listing_wrapper" ng-controller="getList" ng-init="init('/{{ $table  }}',0)">
         <div class="row">
             <div class="col-lg-12">
-                <h2>{{ $tbldetails->display_name }}</h2>
                 
+                @if(isset($tbldetails->display_name))
+                <h2>{{ $tbldetails->display_name }}</h2>
                 <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Adicionar {{ $tbldetails->display_name }}</a>
+                @else
+                <p><i class="glyphicon glyphicon-remove-circle"></i> There is an error in your table configuration. Please check the table comment JSON</p>                
+                @endif
+              
                 <div class="sm-marg"></div>
 
                 <div id="scrolltop"></div>
@@ -40,8 +45,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="margin-bottom"></div>
+                <div class="margin-bottom"></div><br>
                 @endif
+
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-condensed" ng-cloak>

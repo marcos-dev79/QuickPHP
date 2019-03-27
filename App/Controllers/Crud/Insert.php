@@ -25,6 +25,7 @@ class Insert implements Routable {
         $this->blade = $blade;
         $this->url = $url;
         $this->dbname = $options['dbname'];
+        $this->installtype = $options['installtype'];
         $this->crud = $options['crud'];
         $this->id = $id;
     }
@@ -48,7 +49,7 @@ class Insert implements Routable {
         if(!$table = Tables::checkIsTable($this->url)){
             throw new \Exception("404");
         }
-        $tableObj = Tables::describeTable($table);
+        $tableObj = Tables::describeTable($table, $this->dbname);
         $model = new GenericModel();
         $model->setTable($table);
         foreach($tableObj['fields'] as $field){
@@ -66,9 +67,18 @@ class Insert implements Routable {
                                 switch ($info->upload_type) {
                                     case 'image/jpeg':
                                         $newfilename = $newfilename . '.jpg';
+                                        
                                         $uploaddir = 'Uploads/' . $table . '/';
-                                        if (move_uploaded_file($file['tmp_name'], $uploaddir . $newfilename)) {
-                                            $model->{$field->Field} = $uploaddir . $newfilename;
+                                        if($this->installtype = 'rootindex') {
+                                            $uploaddir = 'public/Uploads/' . $table . '/';
+                                        }
+
+                                        try {
+                                            if (move_uploaded_file($file['tmp_name'], $uploaddir . $newfilename)) {
+                                                $model->{$field->Field} = $uploaddir . $newfilename;
+                                            }
+                                        }catch(Exception $e) {
+                                            $err[] = $e->getMessage();
                                         }
                                         break;
                                     default:

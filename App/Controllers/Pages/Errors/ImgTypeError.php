@@ -5,6 +5,8 @@
  * Time: 10:12
  */
 namespace Controllers\Pages\Errors;
+
+use Library\Security\Protector;
 use Respect\Rest\Routable;
 
 class ImgTypeError implements Routable {
@@ -14,6 +16,7 @@ class ImgTypeError implements Routable {
     }
 
     public function get( ) {
-        echo $this->blade->view()->make('Pages/Errors/imgtypeerror')->render();
+        $user = Protector::getUser();
+        echo $this->blade->view()->make('Pages/Errors/imgtypeerror')->with('user', $user)->render();
     }
 }

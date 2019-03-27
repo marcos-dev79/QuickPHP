@@ -36,7 +36,7 @@ class Deleting implements Routable {
             if(!$table = Tables::checkIsTable($this->url)){
                 throw new \Exception("404");
             }
-            $tableObj = Tables::describeTable($table);
+            $tableObj = Tables::describeTable($table, $this->dbname);
             $model = new GenericModel();
             $model->setTable($table);
             $query = $model->find($this->id);
@@ -65,7 +65,7 @@ class Deleting implements Routable {
         if(!$table = Tables::checkIsTable($this->url)){
             throw new \Exception("404");
         }
-        $tableObj = Tables::describeTable($table);
+        $tableObj = Tables::describeTable($table, $this->dbname);
         $model = new GenericModel();
         $model->setTable($table);
         $query = $model->find($data['id']);

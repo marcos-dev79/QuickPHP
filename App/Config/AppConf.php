@@ -18,10 +18,11 @@ $config[] = $_REQUEST;
 
 $protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing'];
 
-$static = ['/', '/logout', '/remove', '/404', 'servicos_pages/*', '/login', '/recuperaSenha', '/admin'];
+$static = ['/', '/logout', '/remove', '/404', 'servicos_pages/*', '/login', '/recuperaSenha', '/admin', '/img_type_error'];
 
 $config['options']['crud'] = ['users'];
 $config['options']['dbname'] = 'quickphp';
+$config['options']['installtype'] = 'rootindex'; // rootindex for index on the root, publicfolder for index.php on the public folder
 
 $status = false;
 

@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="margin-bottom"></div>
+                    <div class="margin-bottom"></div><br>
                 @endif
 
                 <div class="table-responsive">

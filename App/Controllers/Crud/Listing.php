@@ -33,6 +33,7 @@ class Listing implements Routable {
             if(!$table = Tables::checkIsTable($this->url)){
                 throw new \Exception("404");
             }
+
             $tableObj = Tables::describeTable($table, $this->dbname);
             $tbldetails = Tables::getTableDetails($tableObj, $table);
             echo $this->blade->view()->make('Crud/listing')

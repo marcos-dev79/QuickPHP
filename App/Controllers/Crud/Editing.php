@@ -28,6 +28,7 @@ class Editing implements Routable {
         $this->blade = $blade;
         $this->url = $url;
         $this->dbname = $options['dbname'];
+        $this->installtype = $options['installtype'];
         $this->crud = $options['crud'];
         $this->id = $id;
     }
@@ -37,7 +38,7 @@ class Editing implements Routable {
             if(!$table = Tables::checkIsTable($this->url)){
                 throw new \Exception("404");
             }
-            $tableObj = Tables::describeTable($table);
+            $tableObj = Tables::describeTable($table, $this->dbname);
             $make = new Maker();
             $form = $make->generateEditionForm($table, $tableObj, $this->blade, $this->dbname, $this->id);
             echo $form;
@@ -48,10 +49,11 @@ class Editing implements Routable {
 
     public function post(){
         $data = $_POST;
+        $err = [];
         if(!$table = Tables::checkIsTable($this->url)){
             throw new \Exception("404");
         }
-        $tableObj = Tables::describeTable($table);
+        $tableObj = Tables::describeTable($table, $this->dbname);
         $model = new GenericModel();
         $model->setTable($table);
         $query = $model->find($data['id']);
@@ -63,7 +65,11 @@ class Editing implements Routable {
                     foreach($_FILES as $file){
                         if($file['name'] != '') {
                             if($query->{$field->Field} != ''){
-                                unlink('./'.$query->{$field->Field});
+                                try {
+                                    unlink('./'.$query->{$field->Field});
+                                }catch(Exception $e) {
+                                    $err[] = $e->getMessage();
+                                }
                             }
                             if (isset($info->upload_type) && $info->upload_type == $file['type']) {
                                 $filename = substr($file['name'], 0, -4);
@@ -72,9 +78,18 @@ class Editing implements Routable {
                                 switch ($info->upload_type) {
                                     case 'image/jpeg':
                                         $newfilename = $newfilename . '.jpg';
+
                                         $uploaddir = 'Uploads/' . $table . '/';
-                                        if (move_uploaded_file($file['tmp_name'], $uploaddir . $newfilename)) {
-                                            $query->{$field->Field} = $uploaddir . $newfilename;
+                                        if($this->installtype = 'rootindex') {
+                                            $uploaddir = 'public/Uploads/' . $table . '/';
+                                        }
+
+                                        try {
+                                            if (move_uploaded_file($file['tmp_name'], $uploaddir . $newfilename)) {
+                                                $query->{$field->Field} = $uploaddir . $newfilename;
+                                            }
+                                        }catch(Exception $e) {
+                                            $err[] = $e->getMessage();
                                         }
                                         break;
                                     default:
