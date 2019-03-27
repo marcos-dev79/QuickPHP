@@ -3,7 +3,12 @@
 @section('content')
         <div class="row">
             <div class="col-lg-12">
+
+                @if(isset($tableObj['table_detail']->display_name))
                 <h3>{{ $tableObj['table_detail']->display_name }}</h3>
+                @else
+                <p><i class="glyphicon glyphicon-remove-circle"></i> There is an error in your table configuration. Please check the table comment</p>                
+                @endif
                 <hr/>
             </div>
         </div>

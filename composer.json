@@ -1,15 +1,14 @@
 {
-    "description" : "Estudo",
-    "name" : "Estudo",
-    "license": "Private",
+    "description" : "QuickPHP",
+    "name" : "QuickPHP",
+    "license": "MIT",
     "require": {
         "respect/rest": "0.6.0",
         "philo/laravel-blade": "3.*",
         "illuminate/database": "*",
         "illuminate/support": "5.2.*",
         "illuminate/pagination": "^5.2",
-        "phpmailer/phpmailer": "^5.2",
-        "endroid/qrcode": "^1.7"
+        "phpmailer/phpmailer": "^5.2"
     },
     "autoload": {
         "psr-4": {

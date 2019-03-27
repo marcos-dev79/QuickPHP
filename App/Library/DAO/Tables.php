@@ -28,6 +28,7 @@ class Tables
         $table_fks = DB::select('SHOW INDEXES IN '.$table);
         $table_details = DB::select("select * from information_schema.tables where table_schema = '".$database."'");
         $table_obj = ['fields' => $table_fields, 'indexes' => $table_fks, 'table_details' => $table_details];
+
         return $table_obj;
     }
 

@@ -34,7 +34,7 @@ class Insert implements Routable {
             if(!$table = Tables::checkIsTable($this->url)){
                 throw new \Exception("404");
             }
-            $tableObj = Tables::describeTable($table);
+            $tableObj = Tables::describeTable($table, $this->dbname);
             $make = new Maker();
             $form = $make->generateInsertForm($table, $tableObj, $this->blade, $this->dbname);
             echo $form;

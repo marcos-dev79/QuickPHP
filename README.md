@@ -4,6 +4,14 @@ Quick PHP is a PHP/JS framework for quick building up aplications - and even RES
 
 It also have a simple AngularJs template for a quick monolithic web application. Although more modern architectures have emerged since I created this framework, QuickPHP is still valuable for fast creation of simple to medium complexity panels and websites.
 
+## Dependencies
+Quick PHP uses Eloquent ORM and Blade Template Parsers (from Laravel) in order to Work.
+
+## Know limitations
+- PHP 7.1 - Above it dont works. Need to upgrade it. I'm looking for partners.
+- Masks: Still need to implement all the needed ones.
+- It's frontend is outdated. We use Angular JS and Bower. But you may replace it for wherever you want.
+
 # Run composer install first.
 
 Then, configure your stuff at App/Config/AppConf.php.
