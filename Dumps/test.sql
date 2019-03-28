@@ -198,6 +198,24 @@ INSERT INTO `users` VALUES (1,2,'Marcos Riso','mriso@intelitica.com','$2y$10$YE8
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '{"display_name":"Num. Identificação", "required":"false", "mask":"false", "DOM":"input", "readonly":"true", "list":"true"}',
+  `log` text COLLATE utf8_bin COMMENT '{"display_name":"Mensagem de Log", "required":"true", "mask":"false", "DOM":"textarea", "readonly":"true", "tinymce":"false", "list":"true"}',
+  `created_at` timestamp NULL DEFAULT NULL COMMENT '{"display_name":"Criado em", "required":"false", "mask":"false", "class":"datepicker", "DOM":"input", "readonly":"true"}',
+  `updated_at` timestamp NULL DEFAULT NULL COMMENT '{"display_name":"Atualizado em", "required":"false", "mask":"false", "class":"datepicker", "DOM":"input", "readonly":"true"}',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '{"display_name":"Deletado em", "required":"false", "mask":"false", "class":"datepicker", "DOM":"input", "readonly":"true"}',
+  `active` int(11) DEFAULT NULL COMMENT '{"display_name":"Ativo", "mask":"false", "DOM":"checkbox", "readonly":"true"}',
+  `user` int(11) DEFAULT NULL COMMENT '{"display_name":"Usuário", "required":"true", "mask":"false", "readonly":"true","DOM":"select", "link_fk":"users", "list":"true"}',
+  `table` varchar(120) COLLATE utf8_bin DEFAULT NULL COMMENT '{"display_name":"Tabela do BD", "required":"true", "mask":"false", "DOM":"input","readonly":"true", "tinymce":"false", "list":"true"}',
+  `recordid` int(11) DEFAULT NULL COMMENT '{"display_name":"ID do Registro", "required":"false", "mask":"false", "DOM":"input", "readonly":"true", "list":"true"}',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='{"display_name":"System Logs", "type":"userdata", "display_fk":"log"}';
+
+
+
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

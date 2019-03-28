@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/public/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/public/Css/sb-admin-2.css">
     <link rel="stylesheet" type="text/css" href="/public/Css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/public/Css/select2.css">
     <link href="/public/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     @yield('css')
@@ -21,12 +22,12 @@
         <nav class="navbar navbar-nolx navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Mudar Navegação</span>
+                    <span class="sr-only">Change Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navlink" href="/admin">Administração</a>
+                <a class="navbar-brand navlink" href="/admin">Admin Panel</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -39,12 +40,12 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/editing/users/{{ $user['id']  }}"><i class="fa fa-user fa-fw"></i> Meu Perfil</a>
+                        <li><a href="/editing/users/{{ $user['id']  }}"><i class="fa fa-user fa-fw"></i> My Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="/listing/menu"><i class="fa fa-gear fa-fw"></i> Menu Config</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Exit</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -58,7 +59,7 @@
                     <ul class="nav" id="side-menu" ng-controller="getList" ng-init="init('/menu')">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Busca...">
+                                <input type="text" class="form-control" placeholder="Search Placeholder ...">
                                     <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
@@ -68,7 +69,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/admin"><i class="fa fa-area-chart"></i> Painel Inicial</a>
+                            <a href="/admin"><i class="fa fa-area-chart"></i> Dashboard</a>
                         </li>
                         <li ng-repeat="item in obj.collection" ng-cloak>
                             <a href="@{{ item.url }}" ng-class="{'active': item.table == '@if(isset($table)){{$table}}@endif'}"><i class="fa fa-edit fa-fw"></i> @{{ item.display_name }}</a>

@@ -6,7 +6,9 @@
  */
 namespace Controllers\Pages;
 use Library\Security\Protector;
+use Illuminate\Database\Capsule\Manager as DB;
 use Library\DAO\Tables;
+use Models\GenericModel;
 use Respect\Rest\Routable;
 use eTraits;
 
@@ -25,9 +27,29 @@ class Admin implements Routable {
     public function get( ) {
         $user = Protector::getUser();
 
-       $tblObj = Tables::sortTablesByRows($this->dbname);
+        $tblObj = Tables::sortTablesByRows($this->dbname);
 
-        echo $this->blade->view()->make('Admin/dashboard')->with('tblobj', $tblObj)->with('user', $user)->render();
+        $tObj = new GenericModel();
+        $tObj->setTable('log');
+        $topTableData = $tObj->select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+        ->orderBy('id', 'desc')
+        ->groupby('year','month')
+        ->limit(100)
+        ->get();
+
+        $obj = new GenericModel();
+        $obj->setTable('log');
+        $query = $obj::orderBy('id', 'desc')->limit(5)->get();
+
+
+
+        echo $this->blade->view()
+            ->make('Admin/dashboard')
+            ->with('tblobj', $tblObj)
+            ->with('user', $user)
+            ->with('topTableData', $topTableData)
+            ->with('logs', $query)
+            ->render();
     }
 
     public function post( ) {

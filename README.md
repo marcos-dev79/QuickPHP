@@ -1,6 +1,8 @@
 # QuickPHP
 
-Quick PHP is a PHP/JS framework for quick building up aplications - and even REST services. It allows you to auto-generate CRUD based on comments in your tables. It comes with authentication and a admin panel embedded.
+## Build an Admin Panel in Minutes!
+
+Quick PHP is a PHP/JS framework for quick building up aplications - and REST services. It allows you to auto-generate CRUD based on comments in your tables. It comes with authentication and a admin panel embedded.
 
 It also have a simple AngularJs template for a quick monolithic web application. Although more modern architectures have emerged since I created this framework, QuickPHP is still valuable for fast creation of simple to medium complexity panels and websites.
 
@@ -8,15 +10,16 @@ It also have a simple AngularJs template for a quick monolithic web application.
 Quick PHP uses Eloquent ORM and Blade Template Parsers (from Laravel) in order to Work.
 
 ## Know limitations
-- PHP 7.1 - Above it dont works. Need to upgrade it. I'm looking for partners.
-- Masks: Still need to implement all the needed ones.
-- It's frontend is outdated. We use Angular JS and Bower. But you may replace it for wherever you want.
+- PHP 7.1 - Above it dont works. Need to upgrade it. 
+- Masks: Still need to implement all the needed ones - I will add them soon.
+- It's frontend is a bit outdated now. We use Angular JS and Bower. But you may replace it for wherever you want.
 
 # Run composer install first.
 
 Then, configure your stuff at App/Config/AppConf.php.
 Create a folder App/Cache and give write permission.
 
+## Install the standardinstall.sql in the Dumps folder and you will be ready to go.
 The magic them happens in the database, you must set up the table "comments" and the fields comments too. There is a dump example in the Dumps folder.
 
 * image fields: need to create a folder with the table name in the public/uploads folder.
@@ -52,7 +55,7 @@ In the above example, you see a table, and every field have its JSON comments. P
 
 Open /login and use:
 
-User: mriso@intelitica.com
+User: admin@admin.com
 Pass: 123
 
 For adding itens in the menu:

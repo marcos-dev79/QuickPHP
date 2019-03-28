@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+            <a class="navbar-brand page-scroll" href="#page-top">Standard Template</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,8 +42,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Scrolling Nav</h1>
-                <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
+                <h1>Quick PHP</h1>
+                <p><strong>Welcome</strong> If you come into here your configuration is probably most ok!</p>
+                <p>Try the panel: <a href="/login">Login</a></p>
                 <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
             </div>
         </div>

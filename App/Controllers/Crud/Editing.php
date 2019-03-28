@@ -116,7 +116,11 @@ class Editing implements Routable {
                 }
             }
         }
+
         $query->save();
+        $tablel = Tables::getTableDetails($tableObj, $table);
+        Tables::insertLog('update', $data['id'], $tablel, $table);
+
         $this->redirect('listing/'.$table);
     }
 

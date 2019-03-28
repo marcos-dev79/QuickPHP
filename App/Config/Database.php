@@ -7,7 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $capsule = new Capsule;
-$env = 'dev';
+$env = 'prod';
 
 if($env == 'dev') {
     $capsule->addConnection(array(
@@ -25,7 +25,7 @@ elseif($env == 'prod'){
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => 'empty',
+        'database'  => 'standardqphp',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',

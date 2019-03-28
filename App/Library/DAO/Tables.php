@@ -10,6 +10,8 @@ use Illuminate\Database\Capsule\Manager as DB;
 use Models\GenericModel;
 use Predis\Client;
 
+use Library\Security\Protector;
+
 class Tables
 {
     public static function getTables(){
@@ -54,7 +56,7 @@ class Tables
         $arr = [];
         $i = 0;
         foreach($tableObj as $tbl) {
-            if($tbl->TABLE_NAME != 'type' && $tbl->TABLE_NAME != 'menu') {
+            if($tbl->TABLE_NAME != 'type' && $tbl->TABLE_NAME != 'menu'  && $tbl->TABLE_NAME != 'log') {
                 $tbl->TABLE_COMMENT = json_decode($tbl->TABLE_COMMENT);
 
                 $count = DB::select("select count(*) as count from ". $tbl->TABLE_NAME ." where deleted_at is null");
@@ -127,6 +129,38 @@ class Tables
                 return json_decode($field->Comment);
             }
         }
+    }
+
+    public static function insertLog($operation, $id, $tableObj, $table = null) {
+        
+        $user = Protector::getUser();
+        $msg = $user['name'];
+
+        switch($operation) {
+            case 'insert':
+                $msg .= ' inserted '. $table->display_name . ' ' . $tableObj->display_name . ' record id('.$id.')';
+                break;
+            case 'update':
+                $msg .= ' updated '. $table->display_name . ' ' . $tableObj->display_name . ' record id('.$id.')';
+                break;
+            case 'delete':
+                $msg .= ' deleted '. $table->display_name . ' ' . $tableObj->display_name . ' record id('.$id.')';
+                break;
+            default:
+                $msg .= ' performed unknown operation.';
+                break;
+        }
+
+
+        $obj = new GenericModel();
+        $obj->setTable('log');
+
+        $obj->log = $msg;
+        $obj->user = $user['id'];
+        $obj->table = $table;
+        $obj->active = 1;
+        $obj->recordid = $id;
+        $obj->save();
     }
 
 }

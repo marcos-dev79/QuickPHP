@@ -25,42 +25,17 @@ if(!Protector::isAllowedOrLogged($config['url'], $protectedList)) {
 }
 
 // Static Pages
-if($config['url'] == '/'){
     $r3->get('/', 'Controllers\Pages\Home', $config);
-}
-elseif($config['url'] == '/contato'){
-    $r3->any('/contato', 'Controllers\Pages\Contact', $config);
-}
-elseif($config['url'] == '/404'){
     $r3->get('/404', 'Controllers\Pages\P404', $config);
-}
-elseif($config['url'] == '/login'){
     $r3->any('/login', 'Controllers\Pages\Login', $config);
-}
-elseif($config['url'] == '/admin'){
     $r3->get('/admin', 'Controllers\Pages\Admin', $config);
-}
-elseif($config['url'] == '/img_type_error'){
     $r3->get('/img_type_error', 'Controllers\Pages\Errors\ImgTypeError', $config);
-}
-elseif($config['url'] == '/logout'){
     $r3->get('/logout', 'Controllers\Pages\Logout', $config);
-}
-elseif($config['url'] == '/executeLoginWithSession'){
     $r3->post('/executeLoginWithSession', 'Controllers\Pages\PostLogin', $config);
-}
-elseif($config['url'] == '/perfil'){
     $r3->any('/perfil', 'Controllers\Pages\Perfil', $config);
-}
-elseif($config['url'] == '/getusersession'){
     $r3->get('/getusersession', 'Controllers\Pages\UserSessionData', $config);
-}
-elseif($config['url'] == '/bemvindo'){
     $r3->get('/bemvindo', 'Controllers\Pages\Bemvindo', $config);
-}
-elseif($config['url'] == '/recuperaSenha'){
     $r3->any('/recuperaSenha', 'Controllers\Pages\Senha', $config);
-}
 
 // CRUD Routes
 if(!in_array($config['url'], $static)) {

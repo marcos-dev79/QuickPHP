@@ -74,7 +74,12 @@ class Deleting implements Routable {
                 $query->{$field->Field} = $data[$field->Field];
             }
         }
+
         $query->save();
+
+        $tablel = Tables::getTableDetails($tableObj, $table);
+        Tables::insertLog('delete', $data['id'], $tablel, $table);
+
         $this->redirect('listing/'.$table);
     }
 

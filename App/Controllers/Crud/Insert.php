@@ -100,7 +100,11 @@ class Insert implements Routable {
                 }
             }
         }
+
         $model->save();
+        $tablel = Tables::getTableDetails($tableObj, $table);
+        Tables::insertLog('insert', $model->id, $tablel, $table);
+
         $this->redirect('listing/'.$table);
     }
 
