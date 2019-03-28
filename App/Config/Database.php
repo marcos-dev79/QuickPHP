@@ -25,8 +25,8 @@ elseif($env == 'prod'){
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => 'nolx',
-        'username'  => '',
+        'database'  => 'empty',
+        'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',
         'collation' => 'utf8_unicode_ci',

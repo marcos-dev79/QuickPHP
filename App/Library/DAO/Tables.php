@@ -23,7 +23,12 @@ class Tables
         return $ret;
     }
 
-    public static function describeTable($table, $database = 'nolx'){
+        /**
+     * @method describeTable
+     * @author mriso_dev
+     * This method returns a descritive object from the given table, also all the DB information needed.
+     */
+    public static function describeTable($table, $database = 'quickphp'){
         $table_fields = DB::select('SHOW FULL COLUMNS IN '.$table);
         $table_fks = DB::select('SHOW INDEXES IN '.$table);
         $table_details = DB::select("select * from information_schema.tables where table_schema = '".$database."'");
@@ -31,6 +36,51 @@ class Tables
 
         return $table_obj;
     }
+
+    /**
+     * @method getAllTablesInfo
+     * @author mriso_dev
+     * This method returns all the tables info
+     */
+    public static function getAllTablesInfo($database = 'quickphp'){
+        $tables_details = DB::select("select * from information_schema.tables where table_schema = '".$database."'");
+        return $tables_details;
+    }
+
+    public static function sortTablesByRows($dbname) {
+        $tableObj = Tables::getAllTablesInfo($dbname);
+        
+
+        $arr = [];
+        $i = 0;
+        foreach($tableObj as $tbl) {
+            if($tbl->TABLE_NAME != 'type' && $tbl->TABLE_NAME != 'menu') {
+                $tbl->TABLE_COMMENT = json_decode($tbl->TABLE_COMMENT);
+
+                $count = DB::select("select count(*) as count from ". $tbl->TABLE_NAME ." where deleted_at is null");
+                $tbl->count = $count[0]->count;
+
+                $arr[] = $tbl;
+                $i++;
+            }
+            if($i>3) {
+                break;
+            }
+        }
+
+        usort($arr, "self::compare_func");
+        return $arr;
+    }
+
+    private static function compare_func($a, $b)
+    {
+        if ($a->count == $b->count) {
+            return 0;
+        }
+        return ($a->count > $b->count) ? -1 : 1;
+        // You can apply your own sorting logic here.
+    }
+
 
     public static function checkIsTable($url){
         $tables = self::getTables();
