@@ -40,14 +40,14 @@
             $http.get('/deleting/'+table+'/'+$scope.id).then(function(data){
                 $scope.init('/'+table);
                 if(data.result == 'success'){
-                    $('#alerts').removeClass('hidden');
-                    setTimeout(function(){
-                        $("#alerts").addClass('hidden');
-                    }, 3000);
-                }else{
                     $('#alertd').removeClass('hidden');
                     setTimeout(function(){
-                        $('#alertd').addClass('hidden');
+                        $("#alertd").addClass('hidden');
+                    }, 3000);
+                }else{
+                    $('#alerts').removeClass('hidden');
+                    setTimeout(function(){
+                        $('#alerts').addClass('hidden');
                     }, 3000);
                 }
                 $('#modal').modal('hide');

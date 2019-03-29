@@ -98,6 +98,7 @@
     <script src="/public/bower_components/raphael/raphael.min.js"></script>
 
     <script src="/public/Js/select2.full.min.js"></script>
+    <script src="/public/Js/jquery.mask.min.js"></script>
 
     @yield('js')
 

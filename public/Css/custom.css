@@ -42,3 +42,7 @@ a.navlink:hover {
     font-weight: bold;
     color: red;
 }
+
+.pointer {
+    cursor: pointer;
+}

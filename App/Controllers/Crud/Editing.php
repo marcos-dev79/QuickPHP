@@ -102,7 +102,9 @@ class Editing implements Routable {
                         }
                     }
                 }else if($info->DOM == 'password'){
-                    $query->{$field->Field} = Protector::genhash($data[$field->Field]);
+                    if($data[$field->Field] != ''){
+                        $query->{$field->Field} = Protector::genhash($data[$field->Field]);
+                    }
                 }
                 else if(isset($info->class) && $info->class == 'datepicker'){
                     $query->{$field->Field} = Dates::unDateBR($data[$field->Field]);

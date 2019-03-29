@@ -4,5 +4,6 @@
         <input type="password" class="form-control {{ $info->class }}" id="{{ $field->Field }}" name="{{ $field->Field }}" placeholder=""
                 @if($info->readonly) readonly @endif
                 @if($info->required) required @endif >
+                <p class="help-block">Leave empty for no changes.</p>
     </div>
 </div>

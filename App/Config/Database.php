@@ -7,9 +7,9 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $capsule = new Capsule;
-$env = 'prod';
+$env = 'dev';
 
-if($env == 'dev') {
+if($env == 'prod') {
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',
@@ -21,7 +21,7 @@ if($env == 'dev') {
         'prefix'    => ''
     ));
 }
-elseif($env == 'prod'){
+elseif($env == 'dev'){
     $capsule->addConnection(array(
         'driver'    => 'mysql',
         'host'      => 'localhost',

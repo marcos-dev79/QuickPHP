@@ -2,3 +2,4 @@
 /App/Cache/*
 /.idea/*/**
 .idea/*
+.vscode/*

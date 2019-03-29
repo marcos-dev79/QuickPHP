@@ -11,7 +11,6 @@ Quick PHP uses Eloquent ORM and Blade Template Parsers (from Laravel) in order t
 
 ## Know limitations
 - PHP 7.1 - Above it dont works. Need to upgrade it. 
-- Masks: Still need to implement all the needed ones - I will add them soon.
 - It's frontend is a bit outdated now. We use Angular JS and Bower. But you may replace it for wherever you want.
 
 # Run composer install first.
@@ -50,6 +49,17 @@ CREATE TABLE `deals` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='{"display_name":"Vendas", "type":"storage", "display_fk":"id", "link_n":["products"]}';
 ~~~
 In the above example, you see a table, and every field have its JSON comments. Pay attention to the DOM type field, and the link_fk node, which links to another table in a 1:N relationship. It will look for the ID field in the table "users".
+
+## Masks
+
+### Allowed masks configurations:
+date, time, date_time, cep, phone, phone_with_ddd, phone_us, mixed, cpf, money, moneu2, ip_address, percent, mobile
+
+Config for them are at form.blade.php
+
+* We use Igor Escobar's jquery mask. Please give him a star at:
+https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html
+
 
 # Panel
 

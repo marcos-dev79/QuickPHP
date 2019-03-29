@@ -7,7 +7,7 @@
                 
                 @if(isset($tbldetails->display_name))
                 <h2>{{ $tbldetails->display_name }}</h2>
-                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Adicionar {{ $tbldetails->display_name }}</a>
+                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Add {{ $tbldetails->display_name }}</a>
                 @else
                 <p><i class="glyphicon glyphicon-remove-circle"></i> There is an error in your table configuration. Please check the table comment JSON</p>                
                 @endif
@@ -40,7 +40,7 @@
                                     @endif
                                 @endforeach
                                 <input type="hidden" id="table" name="table" value="{{ $table }}">
-                                <button type="submit" class="btn btn-default">Filtrar</button>
+                                <button type="submit" class="btn btn-default">Filter</button>
                             </form>
                         </div>
                     </div>
@@ -53,15 +53,15 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-condensed" ng-cloak>
                         <tr>
-                            <th class="text-center">Opções</th>
+                            <th class="text-center">Options</th>
                             <th ng-repeat="h in obj.headers" >@{{ h }}</th>
                         </tr>
-                        <tr ng-show="obj.collection | isEmpty" ><td colspan="@{{ obj.colspan }}">Não há registros.</td></tr>
+                        <tr ng-show="obj.collection | isEmpty" ><td colspan="@{{ obj.colspan }}">There is no records.</td></tr>
                         <tr ng-repeat="item in obj.collection" >
                             <td class="min-width">
                                 <p>
                                 <a class="btn-sm btn-primary" ng-href="/editing/{{ $table }}/@{{ item.id }}"><i class="glyphicon glyphicon-edit"></i></a>
-                                <a class="btn-sm btn-danger" ng-href="" ng-click="showModal(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
+                                <a class="btn-sm btn-danger pointer" ng-href="" ng-click="showModal(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
                             </td>
                             <td class="max-width" ng-repeat="(key, col) in item" ng-if="obj.fieldsObj[key]" ng-switch="getTypeOf(col)">
 
@@ -70,8 +70,8 @@
                                     <span ng-if="obj.fieldsObj[key].DOM != 'upload' && key != 'totalvalue'" ng-bind-html="trustme(col)">@{{ col }}</span>
                                     <span ng-if="key == 'totalvalue'">@{{ col | currency }}</span>
                                 </span>
-                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==1">Sim</span>
-                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==0">Não</span>
+                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==1">Yes</span>
+                                <span ng-if="obj.fieldsObj[key].DOM == 'checkbox' && col ==0">No</span>
                                 <span ng-switch-when="number" ng-if="obj.fieldsObj[key].DOM != 'checkbox'">@{{ col }}</span>
                                 <span ng-switch-when="object">
                                     <span ng-repeat="coln in col">@{{ coln.id }} - @{{ coln.display_field }}<br/></span>
@@ -107,12 +107,12 @@
 
         <div class="alert alert-danger alert-dismissible hidden" id="alertd" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Sucesso!</strong> Erro desconhecido. Tente novamente.
+            <strong>Error!</strong> Unknow error.
         </div>
 
         <div class="alert alert-success alert-dismissible hidden" id="alerts" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Sucesso!</strong> Deletado com sucesso.
+            <strong>Success!</strong> Record deleted.
         </div>
 
 
@@ -121,14 +121,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Confirmar Exclusão</h4>
+                        <h4 class="modal-title">Confirmation</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Tem certeza que deseja excluir este registro ?</p>
+                        <p>Are you sure you want to delete this record ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" id="exclui-btn" ng-click="deleteobj('{{ $table }}')" class="btn btn-primary">Excluir</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="exclui-btn" ng-click="deleteobj('{{ $table }}')" class="btn btn-primary">Delete</button>
                     </div>
                 </div>
             </div>
@@ -141,9 +141,7 @@
     <script src="/public/bower_components/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $('.select2').select2({
-                theme: "bootstrap"
-            });
+            $('.select2').select2({ });
 
             $( ".datepicker" ).datepicker({
                 dateFormat: "dd/mm/yy",
