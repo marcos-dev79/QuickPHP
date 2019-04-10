@@ -30,9 +30,12 @@ class GenericController implements Routable {
         $this->request = $request;
     }
 
-    public function get( ) {
+    public function get($startdate = null, $enddate = null, $requestedFields = [], $returnquery = false) {
         try {
             if(!$table = Tables::checkIsTable($this->url)){
+                if($this->url == '/favicon.ico') {
+                    return null;
+                }
                 throw new \Exception("404");
             }
 
@@ -60,6 +63,11 @@ class GenericController implements Routable {
 
             $iter = 1;
             foreach($tableObj['fields'] as $field){
+
+                if(count($requestedFields) > 0 && !in_array($field->Field, $requestedFields)) {
+                    continue;
+                }
+
                 $info = json_decode($field->Comment);
 
                 if(isset($info->list) && $info->list == 'true'){
@@ -86,6 +94,7 @@ class GenericController implements Routable {
             $modelObj = new GenericModel();
             $modelObj->setTable($table);
 
+            // Special Order By To be Defined
             if($table == 'horarios'){
                 $query = $modelObj::orderby($table . '.horarios', 'asc');
             }else {
@@ -118,12 +127,23 @@ class GenericController implements Routable {
                         if($k == 'created_at' || $k == 'updated_at'){
                             $v = Dates::unDateBR($v);
                             $query->whereBetween($table.'.'.$k, array($v.' 00:00:00', $v.' 23:59:59'));
+                        }elseif($k == 'ftable'){
+                            $query->whereRaw('LOWER('.$table.'.table) LIKE \'%'.strtolower($v).'%\'');
                         }else {
                             $query->whereRaw('LOWER('.$table.'.'.$k.') LIKE \'%'.strtolower($v).'%\'');
                         }
                         $filter[$k] = $v;
                     }
                 }
+            }
+
+            if($startdate != null && $enddate != null){
+                $v = Dates::unDateBR($startdate);
+                $e = Dates::unDateBR($enddate);
+                $query->whereBetween($table.'.created_at', array($v.' 00:00:00', $e.' 23:59:59'));
+            }elseif($startdate != null && $enddate == null){
+                $v = Dates::unDateBR($startdate);
+                $query->whereBetween($table.'.created_at', array($v.' 00:00:00', $v.' 23:59:59'));
             }
 
             if($pagination) {
@@ -173,7 +193,12 @@ class GenericController implements Routable {
             $u['headers'] = count($h)>0 ? $h : $ah;
             $u['colspan'] = count($h) +1;
 
+            if($returnquery){
+                return $u;
+            }
+
             $this->json($u);
+
         }catch(\Exception $e){
             $this->r404();
         }

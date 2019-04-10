@@ -21,7 +21,8 @@ if($status) {
 
 
 if(!Protector::isAllowedOrLogged($config['url'], $protectedList)) {
-    $r3->any($config['url'], 'Controllers\Pages\Errors\NoAccess', $config);
+    header('HTTP/1.0 403 Forbidden');
+    exit;
 }
 
 // Static Pages
@@ -29,6 +30,7 @@ if(!Protector::isAllowedOrLogged($config['url'], $protectedList)) {
     $r3->get('/404', 'Controllers\Pages\P404', $config);
     $r3->any('/login', 'Controllers\Pages\Login', $config);
     $r3->get('/admin', 'Controllers\Pages\Admin', $config);
+    $r3->any('/reports', 'Controllers\Pages\Reports', $config);
     $r3->get('/img_type_error', 'Controllers\Pages\Errors\ImgTypeError', $config);
     $r3->get('/logout', 'Controllers\Pages\Logout', $config);
     $r3->post('/executeLoginWithSession', 'Controllers\Pages\PostLogin', $config);
@@ -36,6 +38,8 @@ if(!Protector::isAllowedOrLogged($config['url'], $protectedList)) {
     $r3->get('/getusersession', 'Controllers\Pages\UserSessionData', $config);
     $r3->get('/bemvindo', 'Controllers\Pages\Bemvindo', $config);
     $r3->any('/recuperaSenha', 'Controllers\Pages\Senha', $config);
+    $r3->any('/getfields', 'Controllers\Pages\GetFields', $config);
+    $r3->any('/processreport', 'Controllers\Pages\ProcessReport', $config);
 
 // CRUD Routes
 if(!in_array($config['url'], $static)) {

@@ -13,6 +13,14 @@
             });
         };
 
+        $scope.search = '';
+
+        $scope.menufilter = function() {
+            $http.get('/menu?display_name='+$scope.search).then(function(data){
+                $scope.obj = data.data;
+            });
+        };
+
         $scope.range = function(n) {
             return new Array(n);
         };

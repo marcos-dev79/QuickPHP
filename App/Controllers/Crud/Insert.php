@@ -60,34 +60,16 @@ class Insert implements Routable {
                 if($info->DOM == 'upload'){
                     foreach($_FILES as $file){
                         if($file['name'] != '') {
-                            if (isset($info->upload_type) && $info->upload_type == $file['type']) {
-                                $filename = substr($file['name'], 0, -4);
-                                $newfilename = substr(base64_encode(str_shuffle($filename)), 0, 16);
-                                //$extension = substr($file['name'], -3,3);
-                                switch ($info->upload_type) {
-                                    case 'image/jpeg':
-                                        $newfilename = $newfilename . '.jpg';
-                                        
-                                        $uploaddir = 'Uploads/' . $table . '/';
-                                        if($this->installtype = 'rootindex') {
-                                            $uploaddir = 'public/Uploads/' . $table . '/';
-                                        }
 
-                                        try {
-                                            if (move_uploaded_file($file['tmp_name'], $uploaddir . $newfilename)) {
-                                                $model->{$field->Field} = $uploaddir . $newfilename;
-                                            }
-                                        }catch(Exception $e) {
-                                            $err[] = $e->getMessage();
-                                        }
-                                        break;
-                                    default:
-                                        $this->redirect('img_type_error');
-                                        break;
-                                }
-                            }else{
-                                $this->redirect('img_type_error');
+                            $imgUploader = new \Library\Images\ImgUploader();
+
+                            if (isset($info->upload_type) && $info->upload_type == $file['type']) {
+                                $imgUploader->uploadImg($file, $model, $err, $this->installtype, $info->upload_type, $table, $field);
                             }
+                            else {
+                                $imgUploader->uploadImg($file, $model, $err, $this->installtype, $file['type'], $table, $field);
+                            }
+
                         }
                     }
                 }else if($info->DOM == 'password'){

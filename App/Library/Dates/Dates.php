@@ -24,6 +24,13 @@ class Dates {
         return false;
     }
 
+    public static function DateBRwTime( $date ) {
+        if($date != '') {
+            return date("d/m/Y H:i:s", strtotime($date));
+        }
+        return false;
+    }
+
     public static function TimedDateBR( $date ) {
         if($date != '') {
             $current_date = date("Y-m-d");

@@ -39,7 +39,6 @@
 @endsection
 
 @section('js')
-    <script src="/public/bower_components/tinymce/tinymce.min.js"></script>
 
     <script>
         $(document).ready(function(){

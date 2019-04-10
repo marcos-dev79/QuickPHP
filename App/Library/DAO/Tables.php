@@ -31,12 +31,53 @@ class Tables
      * This method returns a descritive object from the given table, also all the DB information needed.
      */
     public static function describeTable($table, $database = 'quickphp'){
-        $table_fields = DB::select('SHOW FULL COLUMNS IN '.$table);
+        $table_fields = self::getTableFields($table);
         $table_fks = DB::select('SHOW INDEXES IN '.$table);
         $table_details = DB::select("select * from information_schema.tables where table_schema = '".$database."'");
         $table_obj = ['fields' => $table_fields, 'indexes' => $table_fks, 'table_details' => $table_details];
 
         return $table_obj;
+    }
+
+    /**
+     * @method CleanTableObj
+     * @author mriso_dev
+     * This method returns a descritive object from the given table, with the comments decoded.
+     */ 
+    public static function CleanTableObj($table, $database = 'quickphp') {
+        $table_fields = self::getTableFields($table);
+        $json = '';
+        $newArr = [];
+        foreach($table_fields as $tbl) {
+            $json = json_decode($tbl->Comment);
+            $tbl->Comment = $json;
+            $newArr[] = $tbl;
+        }
+
+        return $newArr;
+    }
+
+    
+    /**
+     * @method TableFieldsForSelect2
+     * @author mriso_dev
+     * This method returns a descritive object from the given table for the SELECT 2 component
+     */ 
+    public static function TableFieldsForSelect2($table, $database = 'quickphp') {
+        $table_fields = self::getTableFields($table);
+        $json = '';
+        $newArr = [];
+        foreach($table_fields as $tbl) {
+            $json = json_decode($tbl->Comment);
+            $tbl->Comment = $json;
+            $newArr[] = ['id'=>$tbl->Field, 'text'=>$tbl->Comment->display_name];
+        }
+
+        return array_values($newArr);
+    }
+
+    private static function getTableFields($table){
+        return DB::select('SHOW FULL COLUMNS IN '.$table);
     }
 
     /**
@@ -129,6 +170,16 @@ class Tables
                 return json_decode($field->Comment);
             }
         }
+    }
+
+    public static function getTablesWithDetail($database = 'quickphp'){
+        $tableObj = self::getAllTablesInfo($database);
+        $arr = [];
+        foreach ($tableObj as $tbl) {
+            $tblinfo = json_decode($tbl->TABLE_COMMENT);
+            $arr[] = ['tblname'=>$tbl, 'tblinfo'=>$tblinfo];
+        }
+        return $arr;
     }
 
     public static function insertLog($operation, $id, $tableObj, $table = null) {

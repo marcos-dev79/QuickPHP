@@ -1,3 +1,4 @@
+<script src="/public/bower_components/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     $(function(){
         $('.select2').select2({

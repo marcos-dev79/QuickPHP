@@ -19,12 +19,12 @@ $config['url'] = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : '/
 $config['blade'] = new Blade($views, $cache);
 $config[] = $_REQUEST;
 
-$protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing'];
+$protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing', '/users'];
 
-$static = ['/', '/logout', '/remove', '/404', 'servicos_pages/*', '/login', '/recuperaSenha', '/admin', '/img_type_error'];
+$static = ['/', '/logout', '/remove', '/404', '/login', '/recuperaSenha', '/admin', '/img_type_error',  '/reports', '/getfields', '/processreport'];
 
 $config['options']['crud'] = ['users'];
-$config['options']['dbname'] = 'standardqphp'; // standardqphp
+$config['options']['dbname'] = 'quickphp'; // standardqphp
 $config['options']['installtype'] = 'rootindex'; // rootindex for index on the root, publicfolder for index.php on the public folder
 
 $status = false;

@@ -13,6 +13,11 @@ trait Response {
         header('Content-type: application/json');
         echo json_encode($var, JSON_FORCE_OBJECT);
     }
+    
+    public function jsonNoEnforce($var){
+        header('Content-type: application/json');
+        echo json_encode($var);
+    }
 
     public function r404(){
         header('Location: /404');

@@ -33,6 +33,9 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
+                    <a class="navlink" href="/reports"><i class="fa fa-file-text-o"></i> Reports</a>
+                </li>
+                <li>
                     <a class="navlink" href="/admin">{{ $user['name'] }}</a>
                 </li>
                 <li class="dropdown">
@@ -59,7 +62,7 @@
                     <ul class="nav" id="side-menu" ng-controller="getList" ng-init="init('/menu')">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search Placeholder ...">
+                                <input type="text" ng-model="search" class="form-control" ng-keypress="menufilter()" placeholder="Search Menu ...">
                                     <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
@@ -72,7 +75,7 @@
                             <a href="/admin"><i class="fa fa-area-chart"></i> Dashboard</a>
                         </li>
                         <li ng-repeat="item in obj.collection" ng-cloak>
-                            <a href="@{{ item.url }}" ng-class="{'active': item.table == '@if(isset($table)){{$table}}@endif'}"><i class="fa fa-edit fa-fw"></i> @{{ item.display_name }}</a>
+                            <a href="/@{{ item.url }}" ng-class="{'active': item.table == '@if(isset($table)){{$table}}@endif'}"><i class="fa fa-edit fa-fw"></i> @{{ item.display_name }}</a>
                         </li>
                     </ul>
                 </div>
