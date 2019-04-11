@@ -44,7 +44,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,'users','Users','/listing/users',0,'2019-03-25 01:56:02','2019-03-25 01:56:02',NULL);
+INSERT INTO `menu` VALUES (1,'users','Users','listing/users',0,'2019-03-25 01:56:02','2019-03-25 01:56:02',NULL);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 

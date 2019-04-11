@@ -9,11 +9,12 @@ use Respect\Rest\Routable;
 
 class Home implements Routable {
 
-    public function __construct($url, $blade){
+    public function __construct($url, $blade, $request, $options){
         $this->blade = $blade;
+        $this->home  = $options['home'];
     }
 
     public function get( ) {
-        echo $this->blade->view()->make('Pages/home')->render();
+        echo $this->blade->view()->make('Pages/'.$this->home)->render();
     }
 }

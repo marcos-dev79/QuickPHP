@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3>Select a Table</h3>
-                        <select id="tableslc" name="tableslc" class="form-control select2">
+                        <select id="tableslc" required name="tableslc" class="form-control select2">
                             <option>Escolha uma</option>
                         @foreach($tableObj as $tbl)
                             <option value="{{ $tbl['tblname']->TABLE_NAME }}">{{ $tbl['tblinfo']->display_name }}</option>
@@ -26,7 +26,7 @@
                     <div class="col-md-6">
                         <div id="displayfields">
                             <h3>Select the Fields of the table</h3>
-                            <select id="fieldsslc" name="fieldsslc[]" class="form-control select3" multiple>
+                            <select id="fieldsslc" required name="fieldsslc[]" class="form-control select3" multiple>
                                 
                             </select>
                         </div>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Start Date</label>
                         <div class="col-sm-9">
-                            <input type="text" name="startdate" class="form-control datepicker" >
+                            <input type="text" required name="startdate" class="form-control datepicker" >
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">End Date</label>
                         <div class="col-sm-9">
-                            <input type="text" name="enddate" class="form-control datepicker" >
+                            <input type="text" required name="enddate" class="form-control datepicker" >
                         </div>
                     </div>
                 </div>

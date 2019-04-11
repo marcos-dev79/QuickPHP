@@ -21,6 +21,7 @@ class Admin implements Routable {
         $this->dbname = $options['dbname'];
         $this->installtype = $options['installtype'];
         $this->crud = $options['crud'];
+        $this->graph = $options['graph'];
         $this->id = $id;
     }
 
@@ -30,7 +31,7 @@ class Admin implements Routable {
         $tblObj = Tables::sortTablesByRows($this->dbname);
 
         $tObj = new GenericModel();
-        $tObj->setTable('log');
+        $tObj->setTable($this->graph);
         $topTableData = $tObj->select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%m-%Y') new_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
         ->orderBy('id', 'desc')
         ->groupby('year','month')
