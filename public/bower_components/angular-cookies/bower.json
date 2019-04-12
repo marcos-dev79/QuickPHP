@@ -1,9 +1,10 @@
 {
-  "name": "angular",
+  "name": "angular-cookies",
   "version": "1.7.8",
   "license": "MIT",
-  "main": "./angular.js",
+  "main": "./angular-cookies.js",
   "ignore": [],
   "dependencies": {
+    "angular": "1.7.8"
   }
 }

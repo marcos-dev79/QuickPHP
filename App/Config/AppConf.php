@@ -24,7 +24,7 @@ $protectedList = ['/admin', '/listing', '/insert', '/deleting', '/editing', '/us
 $static = ['/', '/logout', '/remove', '/404', '/login', '/recuperaSenha', '/admin', '/img_type_error',  '/reports', '/getfields', '/processreport'];
 
 $config['options']['crud'] = ['users'];
-$config['options']['dbname'] = 'quickphp'; // standardqphp
+$config['options']['dbname'] = 'standardqphp'; // standardqphp
 $config['options']['installtype'] = 'rootindex'; // rootindex for index on the root, publicfolder for index.php on the public folder
 $config['options']['home'] = 'login'; // 1 - login 2 - home
 $config['options']['graph'] = 'log'; // put here your table

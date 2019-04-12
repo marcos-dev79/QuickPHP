@@ -7,7 +7,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 
 $capsule = new Capsule;
-$env = 'prod';
+$env = 'dev';
 
 if($env == 'prod') {
     $capsule->addConnection(array(

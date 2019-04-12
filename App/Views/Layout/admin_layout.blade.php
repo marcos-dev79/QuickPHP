@@ -97,6 +97,7 @@
     <script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/public/Js/sb-admin-2.js"></script>
     <script src="/public/bower_components/angular/angular.min.js"></script>
+    <script src="/public/bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/public/bower_components/metisMenu/dist/metisMenu.js"></script>
     <script src="/public/bower_components/raphael/raphael.min.js"></script>
 

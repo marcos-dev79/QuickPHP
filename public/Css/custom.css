@@ -46,3 +46,9 @@ a.navlink:hover {
 .pointer {
     cursor: pointer;
 }
+
+.cookieinfo {
+    padding: 6px;
+    background-color: antiquewhite;
+    font-size: 11px;
+}

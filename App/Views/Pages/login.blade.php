@@ -1,14 +1,15 @@
 @extends('Layout.base_layout')
 
 @section('content')
-    <div class="container">
+    <div class="container" ng-controller="ctrLogin" >
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Login to Admin</h3>
+                        <h3 ng-if="formData.name" ng-cloak class="panel-title">Welcome back, @{{ formData.name }}</h3>
+                        <h3 ng-if="!formData.name" ng-cloak class="panel-title">Access</h3>
                     </div>
-                    <div class="panel-body" ng-controller="ctrLogin">
+                    <div class="panel-body" ng-init="onLoadCookie()">
                         <form id="login" name="login" ng-submit="submit()" method="post" novalidate>
                             <fieldset>
                                 <div class="form-group" ng-class="{ 'has-error' : login.email.$invalid && !login.email.$pristine }">
@@ -19,10 +20,14 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        <input name="remember" ng-model="formData.remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
+                                    
+                                    <p class="cookieinfo">This site uses cookies and other tracking technologies to assist with navigation 
+                                    and your experience within the application. 
+                                    By clicking the checkbox, you agree with the use of cookies.</p>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
+                                
                                 <button type="button" ng-disabled="login.$invalid" ng-click="submit()" class="btn btn-lg btn-success btn-block">
                                     <i class="fa fa-login"></i> Connect
                                 </button>

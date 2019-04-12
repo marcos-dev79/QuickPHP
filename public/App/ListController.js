@@ -5,7 +5,7 @@
 
     "use strict";
     
-    function getListController($scope, $http, $sce) {
+    function getListController($scope, $http, $sce, $cookies) {
 
         $scope.init = function(url) {
             $http.get(url).then(function(data){

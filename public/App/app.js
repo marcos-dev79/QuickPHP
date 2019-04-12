@@ -6,7 +6,7 @@
 
     "use strict";
     
-    angular.module('app', [])
+    angular.module('app', ['ngCookies'])
     
     .filter('isEmpty', function () {
         var bar;

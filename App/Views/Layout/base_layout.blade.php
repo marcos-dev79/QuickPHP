@@ -2,7 +2,7 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Quick PHP</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -29,6 +29,7 @@
 <script src="/public/Js/jquery.easing.min.js"></script>
 <script src="/public/Js/scrolling-nav.js"></script>
 <script src="/public/bower_components/angular/angular.min.js"></script>
+<script src="/public/bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="/public/App/app.js"></script>
 <script src="/public/App/ListController.js"></script>
 <script src="/public/App/LoginController.js"></script>
