@@ -28,6 +28,7 @@ class Insert implements Routable {
         $this->installtype = $options['installtype'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
     public function get( ) {

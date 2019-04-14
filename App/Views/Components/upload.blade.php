@@ -6,6 +6,6 @@
                 id="{{ $field->Field }}" name="{{ $field->Field }}" placeholder=""
                 @if($info->readonly) readonly @endif
                 @if($info->required) required @endif >
-        <p class="help-block">{{ $info->upload_msg }}. Máx de 6MB</p>
+        <p class="help-block">{{ $info->upload_msg }}. Max 6MB</p>
     </div>
 </div>

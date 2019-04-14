@@ -27,13 +27,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navlink" href="/admin">Admin Panel</a>
+                <a class="navbar-brand navlink" href="/admin">{{ $lang->ADMIN }}</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a class="navlink" href="/reports"><i class="fa fa-file-text-o"></i> Reports</a>
+                    <a class="navlink" href="/reports"><i class="fa fa-file-text-o"></i> {{ $lang->REPORTS }}</a>
                 </li>
                 <li>
                     <a class="navlink" href="/admin">{{ $user['name'] }}</a>
@@ -43,12 +43,12 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/editing/users/{{ $user['id']  }}"><i class="fa fa-user fa-fw"></i> My Profile</a>
+                        <li><a href="/editing/users/{{ $user['id']  }}"><i class="fa fa-user fa-fw"></i> {{ $lang->PROFILE }}</a>
                         </li>
-                        <li><a href="/listing/menu"><i class="fa fa-gear fa-fw"></i> Menu Config</a>
+                        <li><a href="/listing/menu"><i class="fa fa-gear fa-fw"></i> {{ $lang->MENUCONF }}</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Exit</a>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> {{ $lang->EXIT }}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -62,7 +62,7 @@
                     <ul class="nav" id="side-menu" ng-controller="getList" ng-init="init('/menu')">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" ng-model="search" class="form-control" ng-keypress="menufilter()" placeholder="Search Menu ...">
+                                <input type="text" ng-model="search" class="form-control" ng-keypress="menufilter()" placeholder="{{ $lang->SEARCHMENU }}">
                                     <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">
                                         <i class="fa fa-search"></i>
@@ -72,7 +72,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/admin"><i class="fa fa-area-chart"></i> Dashboard</a>
+                            <a href="/admin"><i class="fa fa-area-chart"></i> {{ $lang->DASHBOARD }}</a>
                         </li>
                         <li ng-repeat="item in obj.collection" ng-cloak>
                             <a href="/@{{ item.url }}" ng-class="{'active': item.table == '@if(isset($table)){{$table}}@endif'}"><i class="fa fa-edit fa-fw"></i> @{{ item.display_name }}</a>
@@ -109,7 +109,7 @@
     <script src="/public/App/app.js"></script>
     <script src="/public/App/ListController.js"></script>
     <script src="/public/App/LoginController.js"></script>
-    <script src="/public/App/services.js"></script>
+    <script src="/public/App/LangService.js"></script>
 
 
 </body>

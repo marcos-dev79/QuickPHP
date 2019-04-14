@@ -28,6 +28,7 @@ class GenericController implements Routable {
         $this->crud = $options['crud'];
         $this->id = $id;
         $this->request = $request;
+        $this->lang = $_SESSION['lang'];
     }
 
     public function get($startdate = null, $enddate = null, $requestedFields = [], $returnquery = false) {

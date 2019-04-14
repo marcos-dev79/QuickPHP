@@ -6,11 +6,11 @@
         <select class="form-control select2" id="{{ $field->Field }}" name="{{ $field->Field }}" placeholder=""
                 @if($info->readonly) readonly @endif
                 @if($info->required) required @endif >
-                <option value="">Nenhum</option>
+                <option value="">{{ $lang->PICK }}</option>
             @forelse($link as $l)
                 <option @if(isset($queryObj) && $queryObj->{$field->Field} == $l->id ) selected @endif value="{{ $l->id }}">{{ $l->{$link->details->display_fk} }}</option>
             @empty
-                <option>Empty</option>
+                <option>{{ $lang->NORECORDS }}</option>
             @endforelse
         </select>
     @else

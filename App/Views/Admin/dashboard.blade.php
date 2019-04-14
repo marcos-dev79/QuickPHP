@@ -22,7 +22,7 @@
                     <a href="/listing/{{ $tbl->TABLE_NAME }}">
                         <div class="panel-footer">
                             <span class="pull-left">
-                                <i class="fa fa-angle-right"></i> Edit {{ $tbl->TABLE_COMMENT->display_name }}
+                                <i class="fa fa-angle-right"></i> {{ $lang->EDIT }} {{ $tbl->TABLE_COMMENT->display_name }}
                             </span>
                             <br>
                         </div>
@@ -32,7 +32,7 @@
             @endforeach
         @else
         <div class="col-lg-3 col-md-6">
-            <i class="fa fa-database fa-3x"></i> When you have tables configured, their info will appear here.
+            <i class="fa fa-database fa-3x"></i> {{ $lang->TABLEINFO }}
         </div>
         @endif 
 
@@ -43,7 +43,7 @@
         <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> System's activities
+                    <i class="fa fa-bar-chart-o fa-fw"></i> {{ $lang->SYSACT }}
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -58,7 +58,7 @@
         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> Notifications
+                    <i class="fa fa-bell fa-fw"></i> {{ $lang->NOTIFICATIONS }}
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -68,18 +68,18 @@
                             <a href="/editing/{{ $l->table }}/{{ $l->recordid }}" class="list-group-item">
                                 <i class="fa fa-comment fa-fw"></i> {{ $l->log }}
                                             <span class="pull-right text-muted small">
-                                            <a href="/editing/log/{{ $l->id }}"><small><i class="fa fa-arrow-right"></i> At
+                                            <a href="/editing/log/{{ $l->id }}"><small>
                                                     <em>{{ \Library\Dates\Dates::TimedDateBR($l->updated_at) }}</em></small>
                                                 </a>
                                             </span>
                             </a>
                             @endforeach
                         @else
-                            <span>No records entered on the application.</span>
+                            <span>{{ $lang->NORECORDS }}</span>
                         @endif
                     </div>
                     <!-- /.list-group -->
-                    <a href="/listing/log" class="btn btn-default btn-block">See All Logs</a>
+                    <a href="/listing/log" class="btn btn-default btn-block">{{ $lang->SEEALLLOGS }}</a>
                 </div>
                 <!-- /.panel-body -->
             </div>

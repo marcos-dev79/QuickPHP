@@ -29,7 +29,7 @@
                         <input type="hidden" name="id" id="id" value="{{ $tableObj['id'] }}" />
                     @endif
 
-                    <input type="submit" class="btn btn-success" value="Save" />
+                    <input type="submit" class="btn btn-success" value="{{ $lang->SAVE }}" />
                 </form>
             </div>
             <div class="col-lg-6">

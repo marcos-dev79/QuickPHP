@@ -28,6 +28,7 @@ class AdmSearch implements Routable {
         $this->dbname = $options['dbname'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
 
@@ -193,6 +194,7 @@ class AdmSearch implements Routable {
             ->with('tableObj', $tableObj)
             ->with('user', $user)
             ->with('tbldetails', $tbldetails)
+            ->with('lang', $this->lang)
             ->render();
 
     }

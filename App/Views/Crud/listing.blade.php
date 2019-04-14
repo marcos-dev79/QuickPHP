@@ -7,9 +7,9 @@
                 
                 @if(isset($tbldetails->display_name))
                 <h2>{{ $tbldetails->display_name }}</h2>
-                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> Add {{ $tbldetails->display_name }}</a>
+                <a class="btn btn-success" href="/insert/{{ $table  }}"><i class="fa fa-plus"></i> {{ $lang->ADD }} {{ $tbldetails->display_name }}</a>
                 @else
-                <p><i class="glyphicon glyphicon-remove-circle"></i> There is an error in your table configuration. Please check the table comment JSON</p>                
+                <p><i class="glyphicon glyphicon-remove-circle"></i> {{ $lang->MALFORMED }}</p>                
                 @endif
               
                 <div class="sm-marg"></div>
@@ -40,7 +40,7 @@
                                     @endif
                                 @endforeach
                                 <input type="hidden" id="table" name="table" value="{{ $table }}">
-                                <button type="submit" class="btn btn-default">Filter</button>
+                                <button type="submit" class="btn btn-default">{{ $lang->FILTER }}</button>
                             </form>
                         </div>
                     </div>
@@ -53,10 +53,10 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-condensed" ng-cloak>
                         <tr>
-                            <th class="text-center">Options</th>
+                            <th class="text-center">{{ $lang->OPT }}</th>
                             <th ng-repeat="h in obj.headers" >@{{ h }}</th>
                         </tr>
-                        <tr ng-show="obj.collection | isEmpty" ><td colspan="@{{ obj.colspan }}">There is no records.</td></tr>
+                        <tr ng-show="obj.collection | isEmpty" ><td colspan="@{{ obj.colspan }}">{{ $lang->NORECORDS }}</td></tr>
                         <tr ng-repeat="item in obj.collection" >
                             <td class="min-width">
                                 <p>
@@ -107,12 +107,12 @@
 
         <div class="alert alert-danger alert-dismissible hidden" id="alertd" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Error!</strong> Unknow error.
+            <strong>{{ $lang->ERROR }}!</strong> {{ $lang->UNKERR }}.
         </div>
 
         <div class="alert alert-success alert-dismissible hidden" id="alerts" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> Record deleted.
+            <strong>{{ $lang->SUCCESS }}!</strong> {{ $lang->RECDEL }}.
         </div>
 
 
@@ -121,14 +121,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Confirmation</h4>
+                        <h4 class="modal-title">{{ $lang->CONFIRM }}</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete this record ?</p>
+                        <p>{{ $lang->ARSURE }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" id="exclui-btn" ng-click="deleteobj('{{ $table }}')" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ $lang->CNCL }}</button>
+                        <button type="button" id="exclui-btn" ng-click="deleteobj('{{ $table }}')" class="btn btn-primary">{{ $lang->DEL }}</button>
                     </div>
                 </div>
             </div>

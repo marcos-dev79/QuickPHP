@@ -33,7 +33,7 @@
 <script src="/public/App/app.js"></script>
 <script src="/public/App/ListController.js"></script>
 <script src="/public/App/LoginController.js"></script>
-<script src="/public/App/services.js"></script>
+<script src="/public/App/LangService.js"></script>
 
 @yield('js')
 

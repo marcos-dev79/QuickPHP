@@ -23,6 +23,7 @@ class Admin implements Routable {
         $this->crud = $options['crud'];
         $this->graph = $options['graph'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
     public function get( ) {
@@ -42,14 +43,13 @@ class Admin implements Routable {
         $obj->setTable('log');
         $query = $obj::orderBy('id', 'desc')->limit(5)->get();
 
-
-
         echo $this->blade->view()
             ->make('Admin/dashboard')
             ->with('tblobj', $tblObj)
             ->with('user', $user)
             ->with('topTableData', $topTableData)
             ->with('logs', $query)
+            ->with('lang', $this->lang)
             ->render();
     }
 
@@ -59,6 +59,7 @@ class Admin implements Routable {
     }
 
     public function put ( ) {
-
+        $u = ['status' => 'there is nothing here'];
+        $this->json($u);
     }
 }

@@ -42,6 +42,7 @@ class Login implements Routable {
                 $userObj['id']       = $user[0]->id;
                 $_SESSION['user'] = $userObj;
                 $_SESSION['is_logged'] = 1;
+                $_SESSION['lang'] = $data->lang;
                 $msg = ['error'=>0, 'msg'=>'Sucesso - Redirecionando.', 'user'=>$userObj];
                 $this->json($msg);
             }else{

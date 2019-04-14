@@ -24,6 +24,7 @@ class Listing implements Routable {
         $this->dbname = $options['dbname'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
 
@@ -40,6 +41,7 @@ class Listing implements Routable {
                 ->with('table', $table)
                 ->with('tableObj', $tableObj)
                 ->with('user', $user)
+                ->with('lang', $this->lang)
                 ->with('tbldetails', $tbldetails)
                 ->render();
         }catch(\Exception $e){

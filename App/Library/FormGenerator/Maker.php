@@ -15,6 +15,8 @@ use eTraits;
 class Maker
 {
     use eTraits\Response;
+
+    private $lang;
     /**
      * MySQL Field Comment CONFIG JSON EXAMPLE
      * {
@@ -27,6 +29,11 @@ class Maker
      *  "link_fk":"type"
      *  }
      */
+
+    function __construct(){
+        $this->lang = $_SESSION['lang'];
+    }
+
     public function generateInsertForm($table, $tableObj, $blade, $dbname){
         $html = [];
         $info = new \stdClass();
@@ -35,7 +42,7 @@ class Maker
         foreach($tableObj['fields'] as $field){
             $info = json_decode($field->Comment);
             if($info == null){
-                $msg = 'Malformed mysql json comment or it is missing.';
+                $msg = $this->lang->MALFORMED;
                 echo $blade->view()->make('Pages/error')->with('table', $table)->with('msg', $msg)->render();
                 exit;
             }
@@ -64,11 +71,11 @@ class Maker
                 $fk->details = Tables::getTableDetails($tableObj, $info->link_fk);
             }
 
-            $html[] = $blade->view()->make('Components/'.$info->DOM)->with('tableObj',$tableObj)->with('info',$info)->with('link',$fk)->with('field',$field)->render();
+            $html[] = $blade->view()->make('Components/'.$info->DOM)->with('lang', $this->lang)->with('tableObj',$tableObj)->with('info',$info)->with('link',$fk)->with('field',$field)->render();
         }
         $user = Protector::getUser();
         $tableObj['table_detail'] = Tables::getTableDetails($tableObj, $table);
-        return $blade->view()->make('Crud/form')->with('html', $html)->with('user', $user)->with('tableObj',$tableObj)->with('table', $table)->render();
+        return $blade->view()->make('Crud/form')->with('lang', $this->lang)->with('html', $html)->with('user', $user)->with('tableObj',$tableObj)->with('table', $table)->render();
     }
 
     /**
@@ -116,12 +123,12 @@ class Maker
                 $fk->details = Tables::getTableDetails($tableObj, $info->link_fk);
             }
 
-            $html[] = $blade->view()->make('Components/'.$info->DOM)->with('tableObj',$tableObj)->with('info',$info)->with('queryObj',$queryObj)->with('link',$fk)->with('field',$field)->render();
+            $html[] = $blade->view()->make('Components/'.$info->DOM)->with('lang', $this->lang)->with('tableObj',$tableObj)->with('info',$info)->with('queryObj',$queryObj)->with('link',$fk)->with('field',$field)->render();
         }
 
         $tableObj['id'] = $id;
         $tableObj['table_detail'] = Tables::getTableDetails($tableObj, $table);
         $user = Protector::getUser();
-        return $blade->view()->make('Crud/form')->with('html', $html)->with('user', $user)->with('tableObj',$tableObj)->with('table', $table)->render();
+        return $blade->view()->make('Crud/form')->with('lang', $this->lang)->with('html', $html)->with('user', $user)->with('tableObj',$tableObj)->with('table', $table)->render();
     }
 }

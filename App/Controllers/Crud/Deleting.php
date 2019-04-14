@@ -28,6 +28,7 @@ class Deleting implements Routable {
         $this->dbname = $options['dbname'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
     public function get( ) {

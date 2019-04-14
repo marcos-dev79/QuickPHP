@@ -22,18 +22,18 @@ class Reports implements Routable {
         $this->installtype = $options['installtype'];
         $this->crud = $options['crud'];
         $this->id = $id;
+        $this->lang = $_SESSION['lang'];
     }
 
     public function get( ) {
         $user = Protector::getUser();
         $tableObj = Tables::getTablesWithDetail($this->dbname);
 
-    
-
         echo $this->blade->view()
             ->make('Admin/reports')
             ->with('user', $user)
             ->with('tableObj', $tableObj)
+            ->with('lang', $this->lang)
             ->render();
     }
 
